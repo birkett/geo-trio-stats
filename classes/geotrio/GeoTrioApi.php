@@ -35,11 +35,6 @@ class GeoTrioApi
     private array $headers;
 
     /**
-     * @var string|null
-     */
-    private ?string $deviceId;
-
-    /**
      * @var string
      */
     private string $username;
@@ -59,7 +54,6 @@ class GeoTrioApi
 
         $this->username = $username;
         $this->password = $password;
-        $this->deviceId = null;
 
         $this->headers = [
             'Accept: application/json',
@@ -95,11 +89,11 @@ class GeoTrioApi
      */
     private function getData(string $api): object
     {
-        if(!$this->deviceId) {
-            $this->deviceId = $this->getDeviceId();
-        }
+        $this->setAccessToken();
 
-        $url = self::BASE_URL . $api . $this->deviceId;
+        $deviceId = $this->getDeviceId();
+
+        $url = self::BASE_URL . $api . $deviceId;
 
         curl_setopt($this->curl, CURLOPT_URL, $url);
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, null);
@@ -109,8 +103,6 @@ class GeoTrioApi
         $code = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
 
         if (false === $resp || $code > 200) {
-            $this->deviceId = null;
-
             curl_close($this->curl);
 
             throw new GeoApiException('Failed to fetch live data, code ' . $code);
@@ -146,8 +138,9 @@ class GeoTrioApi
         }
 
         $data = JSON_decode($resp, false);
+        $deviceId = $data->systemRoles[0]->systemId ?? null;
 
-        if(!isset($data->systemRoles[0]->systemId)) {
+        if (!$deviceId) {
             curl_close($this->curl);
 
             throw new GeoApiException('Device ID not found, response was: ' . $resp);

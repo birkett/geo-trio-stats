@@ -5,15 +5,24 @@ declare(strict_types=1);
 namespace GeoTrio\classes\geotrio;
 
 use CurlHandle;
+use GeoTrio\classes\TmpFileCache;
 use stdClass;
+use GeoTrio\traits\CachedOutputTrait;
 
 class GeoTrioApi
 {
+    use CachedOutputTrait;
+
     private const BASE_URL = 'https://api.geotogether.com';
     private const LOGIN_URL = '/usersservice/v2/login';
     private const DEVICE_DETAILS_URL = '/api/userapi/v2/user/detail-systems?systemDetails=true';
     private const LIVEDATA_URL = '/api/userapi/system/smets2-live-data/';
     private const PERIODIC_DATA_URL = '/api/userapi/system/smets2-periodic-data/';
+
+    private const AUTH_TOKEN_CACHE_NAME = 'AuthToken';
+    private const DEVICE_ID_CACHE_NAME = 'DeviceId';
+    private const LIVE_DATA_CACHE_NAME = 'LiveData';
+    private const PERIODIC_DATA_CACHE_NAME = 'PeriodicData';
 
     /**
      * @var false|CurlHandle
@@ -46,6 +55,8 @@ class GeoTrioApi
      */
     public function __construct(string $username, string $password)
     {
+        $this->setOutputCache(new TmpFileCache());
+
         $this->username = $username;
         $this->password = $password;
         $this->deviceId = null;
@@ -113,9 +124,11 @@ class GeoTrioApi
      */
     private function getDeviceId(): string
     {
-        $this->headers[] = 'Authorization: Bearer ' . $this->getAccessToken();
+        $cachedDeviceId = $this->cacheGet(static::class . self::DEVICE_ID_CACHE_NAME);
 
-        curl_setopt($this->curl, CURLOPT_HTTPHEADER, $this->headers);
+        if ($cachedDeviceId) {
+            return $cachedDeviceId;
+        }
 
         $url = self::BASE_URL . self::DEVICE_DETAILS_URL;
 
@@ -140,14 +153,24 @@ class GeoTrioApi
             throw new GeoApiException('Device ID not found, response was: ' . $resp);
         }
 
-        return $data->systemRoles[0]->systemId;
+        $this->cacheSet(static::class . self::DEVICE_ID_CACHE_NAME, $deviceId);
+
+        return $deviceId;
     }
 
     /**
-     * @return string
+     * @return void
      */
-    private function getAccessToken(): string
+    private function setAccessToken(): void
     {
+        $cachedToken = $this->cacheGet(static::class . self::AUTH_TOKEN_CACHE_NAME);
+
+        if ($cachedToken) {
+            $this->setAccessTokenHeader($cachedToken);
+
+            return;
+        }
+
         $url = self::BASE_URL . self::LOGIN_URL;
 
         $data = new stdClass();
@@ -170,12 +193,25 @@ class GeoTrioApi
 
         $data = JSON_decode($resp, false);
 
-        if(!isset($data->accessToken)) {
+        if (!isset($data->accessToken)) {
             curl_close($this->curl);
 
             throw new GeoApiException('Authentication token not found. Response was: ' . $resp);
         }
 
-        return $data->accessToken;
+        $this->cacheSet(static::class . self::AUTH_TOKEN_CACHE_NAME, $data->accessToken);
+        $this->setAccessTokenHeader($data->accessToken);
+    }
+
+    /**
+     * @param string $accessToken
+     *
+     * @return void
+     */
+    private function setAccessTokenHeader(string $accessToken): void
+    {
+        $this->headers[] = 'Authorization: Bearer ' . $accessToken;
+
+        curl_setopt($this->curl, CURLOPT_HTTPHEADER, $this->headers);
     }
 }

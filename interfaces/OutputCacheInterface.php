@@ -9,7 +9,7 @@ interface OutputCacheInterface
     public const DEFAULT_CACHE_TIME = self::CACHE_TIME_30_SECONDS;
 
     public const CACHE_TIME_30_SECONDS = '+30 second';
-    public const CACHE_TIME_24_HOURS = '+24 hour';
+    public const CACHE_TIME_1_HOUR = '+59 minute';
 
     /**
      * @param string $key

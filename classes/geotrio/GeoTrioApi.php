@@ -52,7 +52,7 @@ class GeoTrioApi
     public function __construct(string $username, string $password)
     {
         $this->setOutputCache(new TmpFileCache());
-        $this->setCacheTime(OutputCacheInterface::CACHE_TIME_24_HOURS);
+        $this->setCacheTime(OutputCacheInterface::CACHE_TIME_1_HOUR);
 
         $this->username = $username;
         $this->password = $password;

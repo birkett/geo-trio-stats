@@ -6,8 +6,9 @@ namespace GeoTrio\interfaces;
 
 interface OutputCacheInterface
 {
-    public const DEFAULT_CACHE_TIME = self::CACHE_TIME_24_HOURS;
+    public const DEFAULT_CACHE_TIME = self::CACHE_TIME_30_SECONDS;
 
+    public const CACHE_TIME_30_SECONDS = '+30 second';
     public const CACHE_TIME_24_HOURS = '+24 hour';
 
     /**

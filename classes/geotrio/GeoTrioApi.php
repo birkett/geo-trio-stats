@@ -6,6 +6,7 @@ namespace GeoTrio\classes\geotrio;
 
 use CurlHandle;
 use GeoTrio\classes\TmpFileCache;
+use GeoTrio\interfaces\OutputCacheInterface;
 use stdClass;
 use GeoTrio\traits\CachedOutputTrait;
 
@@ -51,6 +52,7 @@ class GeoTrioApi
     public function __construct(string $username, string $password)
     {
         $this->setOutputCache(new TmpFileCache());
+        $this->setCacheTime(OutputCacheInterface::CACHE_TIME_24_HOURS);
 
         $this->username = $username;
         $this->password = $password;

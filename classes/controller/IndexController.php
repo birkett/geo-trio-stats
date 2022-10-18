@@ -4,11 +4,24 @@ declare(strict_types=1);
 
 namespace GeoTrio\classes\controller;
 
+use GeoTrio\classes\TmpFileCache;
+use GeoTrio\interfaces\OutputCacheInterface;
+use GeoTrio\traits\CachedOutputTrait;
 use JsonException;
 use GeoTrio\classes\geotrio\GeoTrioApi;
 
 final class IndexController extends AbstractController
 {
+    use CachedOutputTrait;
+
+    public function __construct()
+    {
+        $this->setOutputCache(new TmpFileCache());
+        $this->setCacheTime(OutputCacheInterface::CACHE_TIME_30_SECONDS);
+
+        parent::__construct();
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -32,8 +45,18 @@ final class IndexController extends AbstractController
      */
     public function get(): string
     {
+        $cachedResponse = $this->cacheGet(self::class);
+
+        if ($cachedResponse) {
+            return $cachedResponse;
+        }
+
         $geoApi = new GeoTrioApi(getenv('GEO_API_USERNAME'), getenv('GEO_API_PASSWORD'));
 
-        return json_encode($geoApi->getLiveData(), JSON_THROW_ON_ERROR);
+        $response = json_encode($geoApi->getLiveData(), JSON_THROW_ON_ERROR);
+
+        $this->cacheSet(self::class, $response);
+
+        return $response;
     }
 }

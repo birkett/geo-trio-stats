@@ -18,4 +18,20 @@ $router = new Router([
     IndexController::class,
 ]);
 
-echo $router->handleRequest($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
+$isCli = PHP_SAPI === 'cli';
+
+if ($isCli && $argc < 3) {
+    echo 'Usage: ' . $argv[0] . ' <method> <route>' . PHP_EOL;
+
+    return 1;
+}
+
+$method = $isCli
+    ? $argv[1]
+    : $_SERVER['REQUEST_METHOD'];
+
+$route = $isCli
+    ? $argv[2]
+    : $_SERVER['REQUEST_URI'];
+
+echo $router->handleRequest($method, $route);

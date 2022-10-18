@@ -6,11 +6,13 @@ namespace GeoTrio;
 
 use GeoTrio\classes\Autoloader;
 use GeoTrio\classes\controller\IndexController;
+use GeoTrio\classes\EnvVarLoader;
 use GeoTrio\classes\Router;
 
 require_once '../classes/Autoloader.php';
 
 Autoloader::init(['GeoTrio' => '../']);
+EnvVarLoader::load('../.env');
 
 $router = new Router([
     IndexController::class,

@@ -32,7 +32,7 @@ final class IndexController extends AbstractController
      */
     public function get(): string
     {
-        $geoApi = new GeoTrioApi('test', 'test');
+        $geoApi = new GeoTrioApi(getenv('GEO_API_USERNAME'), getenv('GEO_API_PASSWORD'));
 
         return json_encode($geoApi->getLiveData(), JSON_THROW_ON_ERROR);
     }

@@ -55,6 +55,7 @@ final class IndexController extends AbstractController
 
         $response = json_encode($geoApi->getLiveData(), JSON_THROW_ON_ERROR);
 
+        // @TODO: If a ttl value is provided in the response, use that as the cache time here.
         $this->cacheSet(self::class, $response);
 
         return $response;

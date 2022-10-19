@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace GeoTrio\classes\geotrio;
 
 use CurlHandle;
+use JsonException;
+use GeoTrio\classes\geotrio\dto\CredentialsDto;
+use GeoTrio\classes\geotrio\dto\GeoTrioApiLiveDataResponse;
 use GeoTrio\classes\TmpFileCache;
 use GeoTrio\interfaces\OutputCacheInterface;
-use stdClass;
 use GeoTrio\traits\CachedOutputTrait;
 
 class GeoTrioApi
@@ -69,11 +71,18 @@ class GeoTrioApi
     }
 
     /**
-     * @return object
+     * @return GeoTrioApiLiveDataResponse
+     *
+     * @throws JsonException
      */
-    public function getLiveData(): object
+    public function getLiveData(): GeoTrioApiLiveDataResponse
     {
-        return $this->getData(self::LIVEDATA_URL);
+        $response = $this->getData(self::LIVEDATA_URL);
+
+        $dto = new GeoTrioApiLiveDataResponse();
+        $dto->set(json_decode($response, true, 10, JSON_THROW_ON_ERROR));
+
+        return $dto;
     }
 
     /**
@@ -87,9 +96,9 @@ class GeoTrioApi
     /**
      * @param string $api
      *
-     * @return object
+     * @return string
      */
-    private function getData(string $api): object
+    private function getData(string $api): string
     {
         $this->setAccessToken();
 
@@ -110,7 +119,7 @@ class GeoTrioApi
             throw new GeoApiException('Failed to fetch live data, code ' . $code);
         }
 
-        return JSON_decode($resp, false);
+        return $resp;
     }
 
     /**
@@ -140,6 +149,8 @@ class GeoTrioApi
         }
 
         $data = JSON_decode($resp, false);
+
+        // @TODO: This currently assumes one device per account. Support multiple.
         $deviceId = $data->systemRoles[0]->systemId ?? null;
 
         if (!$deviceId) {
@@ -168,14 +179,10 @@ class GeoTrioApi
 
         $url = self::BASE_URL . self::LOGIN_URL;
 
-        $data = new stdClass();
-        $data->identity = $this->username;
-        $data->password = $this->password;
-
-        $msg = JSON_encode($data);
+        $credentials = JSON_encode(new CredentialsDto($this->username, $this->password));
 
         curl_setopt($this->curl, CURLOPT_URL, $url);
-        curl_setopt($this->curl, CURLOPT_POSTFIELDS, $msg);
+        curl_setopt($this->curl, CURLOPT_POSTFIELDS, $credentials);
 
         $resp = curl_exec($this->curl);
         $code = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);

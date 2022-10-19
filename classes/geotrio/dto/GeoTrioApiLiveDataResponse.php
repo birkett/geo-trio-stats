@@ -113,6 +113,14 @@ final class GeoTrioApiLiveDataResponse implements JsonSerializable
     private int $ttl;
 
     /**
+     * @return int
+     */
+    public function getTtl(): int
+    {
+        return $this->ttl;
+    }
+
+    /**
      * @param array $data
      *
      * @return void
@@ -150,8 +158,10 @@ final class GeoTrioApiLiveDataResponse implements JsonSerializable
                     break;
 
                 case 'zigbeeStatus':
-                    $this->zigbeeStatus = new ZigbeeStatusDto();
-                    $this->zigbeeStatus->set($value);
+                    if (is_array($value)) {
+                        $this->zigbeeStatus = new ZigbeeStatusDto();
+                        $this->zigbeeStatus->set($value);
+                    }
 
                     break;
 

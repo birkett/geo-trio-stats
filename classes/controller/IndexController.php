@@ -53,9 +53,14 @@ final class IndexController extends AbstractController
 
         $geoApi = new GeoTrioApi(getenv('GEO_API_USERNAME'), getenv('GEO_API_PASSWORD'));
 
-        $response = json_encode($geoApi->getLiveData(), JSON_THROW_ON_ERROR);
+        $liveData = $geoApi->getLiveData();
 
-        // @TODO: If a ttl value is provided in the response, use that as the cache time here.
+        if ($liveData->getTtl() > 0) {
+            $this->setCacheTime(sprintf('+%d second', $liveData->getTtl()));
+        }
+
+        $response = json_encode($liveData, JSON_THROW_ON_ERROR);
+
         $this->cacheSet(self::class, $response);
 
         return $response;

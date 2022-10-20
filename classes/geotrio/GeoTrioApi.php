@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GeoTrio\classes\geotrio;
 
 use CurlHandle;
+use GeoTrio\classes\geotrio\dto\GeoTrioApiPeriodicDataResponse;
 use JsonException;
 use GeoTrio\classes\geotrio\dto\CredentialsDto;
 use GeoTrio\classes\geotrio\dto\GeoTrioApiLiveDataResponse;
@@ -78,19 +79,22 @@ class GeoTrioApi
     public function getLiveData(): GeoTrioApiLiveDataResponse
     {
         $response = $this->getData(self::LIVEDATA_URL);
+        $responseArray = json_decode($response, true, 10, JSON_THROW_ON_ERROR);
 
-        $dto = new GeoTrioApiLiveDataResponse();
-        $dto->set(json_decode($response, true, 10, JSON_THROW_ON_ERROR));
-
-        return $dto;
+        return new GeoTrioApiLiveDataResponse($responseArray);
     }
 
     /**
-     * @return object
+     * @return GeoTrioApiPeriodicDataResponse
+     *
+     * @throws JsonException
      */
-    public function getPeriodicData(): object
+    public function getPeriodicData(): GeoTrioApiPeriodicDataResponse
     {
-        return $this->getData(self::PERIODIC_DATA_URL);
+        $response = $this->getData(self::PERIODIC_DATA_URL);
+        $responseArray = json_decode($response, true, 10, JSON_THROW_ON_ERROR);
+
+        return new GeoTrioApiPeriodicDataResponse($responseArray);
     }
 
     /**

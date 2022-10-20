@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace GeoTrio;
 
 use GeoTrio\classes\Autoloader;
-use GeoTrio\classes\controller\IndexController;
+use GeoTrio\classes\controller\LiveDataController;
+use GeoTrio\classes\controller\PeriodicDataController;
 use GeoTrio\classes\EnvVarLoader;
 use GeoTrio\classes\Router;
 
@@ -15,7 +16,8 @@ Autoloader::init(['GeoTrio' => '../']);
 EnvVarLoader::load('../.env');
 
 $router = new Router([
-    IndexController::class,
+    LiveDataController::class,
+    PeriodicDataController::class,
 ]);
 
 $isCli = PHP_SAPI === 'cli';

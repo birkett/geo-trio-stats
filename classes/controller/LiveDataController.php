@@ -10,7 +10,7 @@ use GeoTrio\traits\CachedOutputTrait;
 use JsonException;
 use GeoTrio\classes\geotrio\GeoTrioApi;
 
-final class IndexController extends AbstractController
+final class LiveDataController extends AbstractController
 {
     use CachedOutputTrait;
 
@@ -27,7 +27,7 @@ final class IndexController extends AbstractController
      */
     public function getRoute(): string
     {
-        return '/';
+        return '/live';
     }
 
     /**

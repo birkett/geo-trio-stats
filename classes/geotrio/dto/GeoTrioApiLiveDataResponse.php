@@ -4,113 +4,113 @@ declare(strict_types=1);
 
 namespace GeoTrio\classes\geotrio\dto;
 
-use JsonSerializable;
-use GeoTrio\traits\SetToFromArrayTrait;
+use GeoTrio\classes\geotrio\dto\abstract\AbstractSettableDto;
+use GeoTrio\classes\geotrio\dto\components\PowerResponseDto;
+use GeoTrio\classes\geotrio\dto\components\SystemStatusDto;
+use GeoTrio\classes\geotrio\dto\components\ZigbeeStatusDto;
 
-final class GeoTrioApiLiveDataResponse implements JsonSerializable
+final class GeoTrioApiLiveDataResponse extends AbstractSettableDto
 {
-    use SetToFromArrayTrait;
-
     /***
      * @var int
      */
-    private int $latestUtc;
+    protected int $latestUtc;
 
     /**
      * @var string
      */
-    private string $id;
+    protected string $id;
 
     /**
      * @var PowerResponseDto[]|null
      */
-    private array|null $power;
+    protected array|null $power;
 
     /**
      * @var int
      */
-    private int $powerTimestamp;
+    protected int $powerTimestamp;
 
     /**
      * @var int
      */
-    private int $localTime;
+    protected int $localTime;
 
     /**
      * @var int
      */
-    private int $localTimeTimestamp;
+    protected int $localTimeTimestamp;
 
     /**
      * @TODO: Unknown structure. Needs implementing.
      *
      * @var array|null
      */
-    private array|null $creditStatus;
+    protected array|null $creditStatus;
 
     /**
      * @var int
      */
-    private int $creditStatusTimestamp;
+    protected int $creditStatusTimestamp;
 
     /**
      * @TODO: Unknown structure. Needs implementing.
      *
      * @var array|null
      */
-    private array|null $remainingCredit;
+    protected array|null $remainingCredit;
 
     /**
      * @var int
      */
-    private int $remainingCreditTimestamp;
+    protected int $remainingCreditTimestamp;
 
     /**
      * @var ZigbeeStatusDto|null
      */
-    private ZigbeeStatusDto|null $zigbeeStatus;
+    protected ZigbeeStatusDto|null $zigbeeStatus;
 
     /**
      * @var int
      */
-    private int $zigbeeStatusTimestamp;
+    protected int $zigbeeStatusTimestamp;
 
     /**
      * @TODO: Unknown structure. Needs implementing.
      *
      * @var array|null
      */
-    private array|null $emergencyCredit;
+    protected array|null $emergencyCredit;
 
     /**
      * @var int
      */
-    private int $emergencyCreditTimestamp;
+    protected int $emergencyCreditTimestamp;
 
     /**
      * @var SystemStatusDto[]|null
      */
-    private array|null $systemStatus;
+    protected array|null $systemStatus;
 
     /**
      * @var int
      */
-    private int $systemStatusTimestamp;
+    protected int $systemStatusTimestamp;
 
     /**
      * @var float
      */
-    private float $temperature;
+    protected float $temperature;
 
     /**
      * @var int
      */
-    private int $temperatureTimestamp;
+    protected int $temperatureTimestamp;
 
     /**
      * @var int
      */
-    private int $ttl;
+    protected int $ttl;
 
     /**
      * @return int
@@ -125,7 +125,7 @@ final class GeoTrioApiLiveDataResponse implements JsonSerializable
      *
      * @return void
      */
-    public function set(array $data): void
+    protected function set(array $data): void
     {
         foreach ($data as $key => $value) {
             switch ($key) {
@@ -134,10 +134,7 @@ final class GeoTrioApiLiveDataResponse implements JsonSerializable
                         $this->power = [];
 
                         foreach ($value as $powerEntry) {
-                            $dto = new PowerResponseDto();
-                            $dto->set($powerEntry);
-
-                            $this->power[] = $dto;
+                            $this->power[] = new PowerResponseDto($powerEntry);
                         }
                     }
 
@@ -148,10 +145,7 @@ final class GeoTrioApiLiveDataResponse implements JsonSerializable
                         $this->systemStatus = [];
 
                         foreach ($value as $statusEntry) {
-                            $dto = new SystemStatusDto();
-                            $dto->set($statusEntry);
-
-                            $this->systemStatus[] = $dto;
+                            $this->systemStatus[] = new SystemStatusDto($statusEntry);
                         }
                     }
 
@@ -159,8 +153,7 @@ final class GeoTrioApiLiveDataResponse implements JsonSerializable
 
                 case 'zigbeeStatus':
                     if (is_array($value)) {
-                        $this->zigbeeStatus = new ZigbeeStatusDto();
-                        $this->zigbeeStatus->set($value);
+                        $this->zigbeeStatus = new ZigbeeStatusDto($value);
                     }
 
                     break;
@@ -169,13 +162,5 @@ final class GeoTrioApiLiveDataResponse implements JsonSerializable
                     $this->{$key} = $value;
             }
         }
-    }
-
-    /**
-     * @return array
-     */
-    public function jsonSerialize(): array
-    {
-        return get_object_vars($this);
     }
 }

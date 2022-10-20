@@ -1,0 +1,62 @@
+{
+    "latestUtc": 1666127491,
+    "id": "guid",
+    "power": [
+        {
+            "type": "ELECTRICITY",
+            "watts": 262,
+            "valueAvailable": true
+        },
+        {
+            "type": "GAS_ENERGY",
+            "watts": 0,
+            "valueAvailable": true
+        }
+    ],
+    "powerTimestamp": 1666127491,
+    "localTime": 1666131091,
+    "localTimeTimestamp": 1666127491,
+    "creditStatus": null,
+    "creditStatusTimestamp": 0,
+    "remainingCredit": null,
+    "remainingCreditTimestamp": 0,
+    "zigbeeStatus": {
+        "electricityClusterStatus": "CONNECTED",
+        "gasClusterStatus": "CONNECTED",
+        "hanStatus": "CONNECTED",
+        "networkRssi": -72
+    },
+    "zigbeeStatusTimestamp": 1666127491,
+    "emergencyCredit": null,
+    "emergencyCreditTimestamp": 0,
+    "systemStatus": [
+        {
+            "component": "DISPLAY",
+            "statusType": "STATUS_OK",
+            "systemErrorCode": "ERROR_CODE_NONE",
+            "systemErrorNumber": 0
+        },
+        {
+            "component": "ZIGBEE",
+            "statusType": "STATUS_OK",
+            "systemErrorCode": "ERROR_CODE_NONE",
+            "systemErrorNumber": 0
+        },
+        {
+            "component": "ELECTRICITY",
+            "statusType": "STATUS_OK",
+            "systemErrorCode": "ERROR_CODE_NONE",
+            "systemErrorNumber": 0
+        },
+        {
+            "component": "GAS",
+            "statusType": "STATUS_OK",
+            "systemErrorCode": "ERROR_CODE_NONE",
+            "systemErrorNumber": 0
+        }
+    ],
+    "systemStatusTimestamp": 1666127491,
+    "temperature": 0,
+    "temperatureTimestamp": 0,
+    "ttl": 120
+}

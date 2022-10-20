@@ -1,0 +1,198 @@
+{
+    "ttl": 1800,
+    "latestUtc": 1666213533,
+    "id": "guid",
+    "totalConsumptionList": [
+        {
+            "commodityType": "ELECTRICITY",
+            "readingTime": 1666213533,
+            "totalConsumption": 16887.129,
+            "valueAvailable": true
+        },
+        {
+            "commodityType": "GAS_ENERGY",
+            "readingTime": 1666213200,
+            "totalConsumption": 6088110,
+            "valueAvailable": true
+        }
+    ],
+    "totalConsumptionTimestamp": 1666213533,
+    "supplyStatusList": [
+        {
+            "commodityType": "ELECTRICITY",
+            "supplyStatus": "SUPPLYON"
+        },
+        {
+            "commodityType": "GAS_ENERGY",
+            "supplyStatus": "SUPPLYON"
+        }
+    ],
+    "supplyStatusTimestamp": 1666213533,
+    "billToDateList": [
+        {
+            "commodityType": "ELECTRICITY",
+            "billToDate": 2932.965,
+            "validUTC": 1666213533,
+            "startUTC": 946684800,
+            "duration": 0,
+            "valueAvailable": true
+        },
+        {
+            "commodityType": "GAS_ENERGY",
+            "billToDate": 2905.212,
+            "validUTC": 946684800,
+            "startUTC": 946684800,
+            "duration": 0,
+            "valueAvailable": true
+        }
+    ],
+    "billToDateTimestamp": 1666213533,
+    "activeTariffList": [
+        {
+            "commodityType": "ELECTRICITY",
+            "valueAvailable": true,
+            "nextTariffStartTime": 0,
+            "activeTariffPrice": 19.13,
+            "nextTariffPrice": 0,
+            "nextPriceAvailable": false
+        },
+        {
+            "commodityType": "GAS_ENERGY",
+            "valueAvailable": true,
+            "nextTariffStartTime": 0,
+            "activeTariffPrice": 3.402,
+            "nextTariffPrice": 0,
+            "nextPriceAvailable": false
+        }
+    ],
+    "activeTariffTimestamp": 1666213533,
+    "currentCostsElec": [
+        {
+            "commodityType": "ELECTRICITY",
+            "duration": "DAY",
+            "period": 0,
+            "costAmount": 141.866,
+            "energyAmount": 5.947
+        },
+        {
+            "commodityType": "ELECTRICITY",
+            "duration": "WEEK",
+            "period": 0,
+            "costAmount": 461.345,
+            "energyAmount": 19.708
+        },
+        {
+            "commodityType": "ELECTRICITY",
+            "duration": "MONTH",
+            "period": 0,
+            "costAmount": 3333.884,
+            "energyAmount": 146.352
+        }
+    ],
+    "currentCostsElecTimestamp": 1666213533,
+    "currentCostsGas": [
+        {
+            "commodityType": "GAS_ENERGY",
+            "duration": "DAY",
+            "period": 0,
+            "costAmount": 182.928,
+            "energyAmount": 45.566
+        },
+        {
+            "commodityType": "GAS_ENERGY",
+            "duration": "WEEK",
+            "period": 0,
+            "costAmount": 523.557,
+            "energyAmount": 129.281
+        },
+        {
+            "commodityType": "GAS_ENERGY",
+            "duration": "MONTH",
+            "period": 0,
+            "costAmount": 3225.355,
+            "energyAmount": 792.183
+        }
+    ],
+    "currentCostsGasTimestamp": 1666213533,
+    "prePayDebtList": null,
+    "prePayDebtTimestamp": 0,
+    "billingMode": [
+        {
+            "billingMode": "CREDIT",
+            "commodityType": "ELECTRICITY",
+            "valueAvailable": true
+        },
+        {
+            "billingMode": "CREDIT",
+            "commodityType": "GAS_ENERGY",
+            "valueAvailable": true
+        }
+    ],
+    "billingModeTimestamp": 1666213533,
+    "budgetRagStatusDetails": [
+        {
+            "currDay": "UNKNOWN",
+            "yesterDay": "UNKNOWN",
+            "currWeek": "UNKNOWN",
+            "lastWeek": "UNKNOWN",
+            "currMth": "UNKNOWN",
+            "lastMth": "UNKNOWN",
+            "thisYear": "UNKNOWN",
+            "valueAvailable": true,
+            "commodityType": "ELECTRICITY"
+        },
+        {
+            "currDay": "UNKNOWN",
+            "yesterDay": "UNKNOWN",
+            "currWeek": "UNKNOWN",
+            "lastWeek": "UNKNOWN",
+            "currMth": "UNKNOWN",
+            "lastMth": "UNKNOWN",
+            "thisYear": "UNKNOWN",
+            "valueAvailable": true,
+            "commodityType": "GAS_ENERGY"
+        }
+    ],
+    "budgetRagStatusDetailsTimestamp": 1666213533,
+    "budgetSettingDetails": [
+        {
+            "valueAvailable": true,
+            "energyAmount": 0,
+            "costAmount": 0,
+            "budgetToC": 0,
+            "commodityType": "ELECTRICITY"
+        },
+        {
+            "valueAvailable": true,
+            "energyAmount": 0,
+            "costAmount": 0,
+            "budgetToC": 0,
+            "commodityType": "GAS_ENERGY"
+        }
+    ],
+    "budgetSettingDetailsTimestamp": 1666213533,
+    "setPoints": {
+        "daySetPoint": {
+            "temperatureSetPoint": 190,
+            "timeOfChange": 0
+        },
+        "nightSetPoint": {
+            "temperatureSetPoint": 150,
+            "timeOfChange": 0
+        }
+    },
+    "seasonalAdjustments": [
+        {
+            "valueAvailable": true,
+            "commodityType": "ELECTRICITY",
+            "adjustment": true,
+            "timeOfChange": 0
+        },
+        {
+            "valueAvailable": true,
+            "commodityType": "GAS_ENERGY",
+            "adjustment": true,
+            "timeOfChange": 0
+        }
+    ]
+}

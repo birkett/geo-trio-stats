@@ -1,0 +1,21 @@
+{
+    "latestUtc": 0,
+    "id": "guid",
+    "power": null,
+    "powerTimestamp": 0,
+    "localTime": 0,
+    "localTimeTimestamp": 0,
+    "creditStatus": null,
+    "creditStatusTimestamp": 0,
+    "remainingCredit": null,
+    "remainingCreditTimestamp": 0,
+    "zigbeeStatus": null,
+    "zigbeeStatusTimestamp": 0,
+    "emergencyCredit": null,
+    "emergencyCreditTimestamp": 0,
+    "systemStatus": null,
+    "systemStatusTimestamp": 0,
+    "temperature": 0,
+    "temperatureTimestamp": 0,
+    "ttl": 0
+}

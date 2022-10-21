@@ -8,6 +8,10 @@ use GeoTrio\classes\geotrio\dto\abstract\AbstractSettableDto;
 
 final class SystemDetailDto extends AbstractSettableDto
 {
+    protected const PROPERTY_DTO_ARRAY_MAP = [
+        'devices' => DeviceDto::class,
+    ];
+
     /**
      * @var string
      */
@@ -22,24 +26,4 @@ final class SystemDetailDto extends AbstractSettableDto
      * @var string
      */
     protected string $systemId;
-
-    /**
-     * @param array $data
-     *
-     * @return void
-     */
-    public function set(array $data): void
-    {
-        foreach ($data as $key => $value) {
-            switch ($key) {
-                case 'devices':
-                    $this->setDtoArray($key, DeviceDto::class, $value);
-
-                    break;
-
-                default:
-                    $this->{$key} = $value;
-            }
-        }
-    }
 }

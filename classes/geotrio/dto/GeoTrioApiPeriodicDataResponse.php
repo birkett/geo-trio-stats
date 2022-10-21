@@ -22,6 +22,23 @@ final class GeoTrioApiPeriodicDataResponse extends AbstractSettableDto implement
 {
     use TtlTrait;
 
+    protected const PROPERTY_DTO_ARRAY_MAP = [
+        'totalConsumptionList' => ConsumptionListDto::class,
+        'supplyStatusList' => SupplyStatusDto::class,
+        'billToDateList' => BillToDateListDto::class,
+        'activeTariffList' => ActiveTariffDto::class,
+        'currentCostsElec' => EnergyCostDto::class,
+        'currentCostsGas' => EnergyCostDto::class,
+        'billingMode' => BillingModeDto::class,
+        'budgetRagStatusDetails' => BudgetRagStatusDto::class,
+        'budgetSettingDetails' => BudgetSettingDto::class,
+        'seasonalAdjustments' => SeasonalAdjustmentDto::class,
+    ];
+
+    protected const PROPERTY_DTO_MAP = [
+        'setPoints' => SetPointsDto::class,
+    ];
+
     /**
      * @var int
      */
@@ -143,72 +160,4 @@ final class GeoTrioApiPeriodicDataResponse extends AbstractSettableDto implement
      * @var SeasonalAdjustmentDto[]|null
      */
     protected array|null $seasonalAdjustments;
-
-    /**
-     * @param array $data
-     *
-     * @return void
-     */
-    protected function set(array $data): void
-    {
-        foreach ($data as $key => $value) {
-            switch ($key) {
-                case 'totalConsumptionList':
-                    $this->setDtoArray($key, ConsumptionListDto::class, $value);
-
-                    break;
-
-                case 'supplyStatusList':
-                    $this->setDtoArray($key, SupplyStatusDto::class, $value);
-
-                    break;
-
-                case 'billToDateList':
-                    $this->setDtoArray($key, BillToDateListDto::class, $value);
-
-                    break;
-
-                case 'activeTariffList':
-                    $this->setDtoArray($key, ActiveTariffDto::class, $value);
-
-                    break;
-
-                case 'currentCostsElec':
-                case 'currentCostsGas':
-                    $this->setDtoArray($key, EnergyCostDto::class, $value);
-
-                    break;
-
-                case 'billingMode':
-                    $this->setDtoArray($key, BillingModeDto::class, $value);
-
-                    break;
-
-                case 'budgetRagStatusDetails':
-                    $this->setDtoArray($key, BudgetRagStatusDto::class, $value);
-
-                    break;
-
-                case 'budgetSettingDetails':
-                    $this->setDtoArray($key, BudgetSettingDto::class, $value);
-
-                    break;
-
-                case 'setPoints':
-                    if (is_array($value)) {
-                        $this->setPoints = new SetPointsDto($value);
-                    }
-
-                    break;
-
-                case 'seasonalAdjustments':
-                    $this->setDtoArray($key, SeasonalAdjustmentDto::class, $value);
-
-                    break;
-
-                default:
-                    $this->{$key} = $value;
-            }
-        }
-    }
 }

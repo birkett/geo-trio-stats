@@ -10,6 +10,11 @@ use GeoTrio\classes\geotrio\dto\components\SystemRoleDto;
 
 final class DeviceDetailsDto extends AbstractSettableDto
 {
+    protected const PROPERTY_DTO_ARRAY_MAP = [
+        'systemRoles' => SystemRoleDto::class,
+        'systemDetails' => SystemDetailDto::class,
+    ];
+
     /**
      * @var SystemRoleDto[]|null
      */
@@ -26,30 +31,5 @@ final class DeviceDetailsDto extends AbstractSettableDto
     public function getSystemRoles(): array
     {
         return $this->systemRoles;
-    }
-
-    /**
-     * @param array $data
-     *
-     * @return void
-     */
-    public function set(array $data): void
-    {
-        foreach ($data as $key => $value) {
-            switch ($key) {
-                case 'systemRoles':
-                    $this->setDtoArray($key, SystemRoleDto::class, $value);
-
-                    break;
-
-                case 'systemDetails':
-                    $this->setDtoArray($key, SystemDetailDto::class, $value);
-
-                    break;
-
-                default:
-                    $this->{$key} = $value;
-            }
-        }
     }
 }

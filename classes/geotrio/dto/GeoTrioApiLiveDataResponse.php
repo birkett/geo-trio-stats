@@ -15,6 +15,15 @@ final class GeoTrioApiLiveDataResponse extends AbstractSettableDto implements Ge
 {
     use TtlTrait;
 
+    protected const PROPERTY_DTO_ARRAY_MAP = [
+        'power' => PowerResponseDto::class,
+        'systemStatus' => SystemStatusDto::class,
+    ];
+
+    protected const PROPERTY_DTO_MAP = [
+        'zigbeeStatus' => ZigbeeStatusDto::class,
+    ];
+
     /***
      * @var int
      */
@@ -110,36 +119,4 @@ final class GeoTrioApiLiveDataResponse extends AbstractSettableDto implements Ge
      * @var int
      */
     protected int $temperatureTimestamp;
-
-    /**
-     * @param array $data
-     *
-     * @return void
-     */
-    protected function set(array $data): void
-    {
-        foreach ($data as $key => $value) {
-            switch ($key) {
-                case 'power':
-                    $this->setDtoArray($key, PowerResponseDto::class, $value);
-
-                    break;
-
-                case 'systemStatus':
-                    $this->setDtoArray($key, SystemStatusDto::class, $value);
-
-                    break;
-
-                case 'zigbeeStatus':
-                    if (is_array($value)) {
-                        $this->zigbeeStatus = new ZigbeeStatusDto($value);
-                    }
-
-                    break;
-
-                default:
-                    $this->{$key} = $value;
-            }
-        }
-    }
 }

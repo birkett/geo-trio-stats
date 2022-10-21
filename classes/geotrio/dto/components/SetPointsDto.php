@@ -8,6 +8,11 @@ use GeoTrio\classes\geotrio\dto\abstract\AbstractSettableDto;
 
 final class SetPointsDto extends AbstractSettableDto
 {
+    protected const PROPERTY_DTO_MAP = [
+        'daySetPoint' => SetPointDto::class,
+        'nightSetPoint' => SetPointDto::class,
+    ];
+
     /**
      * @var SetPointDto
      */
@@ -17,18 +22,4 @@ final class SetPointsDto extends AbstractSettableDto
      * @var SetPointDto
      */
     protected SetPointDto $nightSetPoint;
-
-    /**
-     * @param array $data
-     *
-     * @return void
-     */
-    protected function set(array $data): void
-    {
-        foreach ($data as $key => $value) {
-            if (is_array($value)) {
-                $this->{$key} = new SetPointDto($value);
-            }
-        }
-    }
 }

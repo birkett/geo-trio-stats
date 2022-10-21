@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GeoTrio\classes\geotrio;
 
 use CurlHandle;
+use GeoTrio\classes\geotrio\dto\AuthTokenResponseDto;
 use GeoTrio\classes\geotrio\dto\GeoTrioApiPeriodicDataResponse;
 use JsonException;
 use GeoTrio\classes\geotrio\dto\CredentialsDto;
@@ -170,6 +171,8 @@ class GeoTrioApi
 
     /**
      * @return void
+     *
+     * @throws JsonException
      */
     private function setAccessToken(): void
     {
@@ -183,10 +186,10 @@ class GeoTrioApi
 
         $url = self::BASE_URL . self::LOGIN_URL;
 
-        $credentials = JSON_encode(new CredentialsDto([
+        $credentials = json_encode(new CredentialsDto([
             'identity' => $this->username,
             'password' => $this->password,
-        ]));
+        ]), JSON_THROW_ON_ERROR);
 
         curl_setopt($this->curl, CURLOPT_URL, $url);
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $credentials);
@@ -200,16 +203,16 @@ class GeoTrioApi
             throw new GeoApiException('Failed to log in, code ' . $code);
         }
 
-        $data = JSON_decode($resp, false);
+        $authResponse = new AuthTokenResponseDto(json_decode($resp, true, 10, JSON_THROW_ON_ERROR));
 
-        if (!isset($data->accessToken)) {
+        if (!$authResponse->hasToken()) {
             curl_close($this->curl);
 
             throw new GeoApiException('Authentication token not found. Response was: ' . $resp);
         }
 
-        $this->cacheSet(static::class . self::AUTH_TOKEN_CACHE_NAME, $data->accessToken);
-        $this->setAccessTokenHeader($data->accessToken);
+        $this->cacheSet(static::class . self::AUTH_TOKEN_CACHE_NAME, $authResponse->getAccessToken());
+        $this->setAccessTokenHeader($authResponse->getAccessToken());
     }
 
     /**

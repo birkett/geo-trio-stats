@@ -1,0 +1,44 @@
+{
+    "systemRoles": [
+        {
+            "name": "guid",
+            "systemId": "guid",
+            "roles": [
+                "READ",
+                "WRITE"
+            ]
+        }
+    ],
+    "systemDetails": [
+        {
+            "name": "Name",
+            "devices": [
+                {
+                    "deviceType": "TRIO_II_TB_GEO",
+                    "sensorType": 94,
+                    "nodeId": 0,
+                    "versionNumber": {
+                        "major": 4,
+                        "minor": 2
+                    },
+                    "pairedTimestamp": 0,
+                    "pairingCode": "AAAAAA",
+                    "upgradeRequired": false
+                },
+                {
+                    "deviceType": "WIFI_MODULE",
+                    "sensorType": 81,
+                    "nodeId": 64,
+                    "versionNumber": {
+                        "major": 2,
+                        "minor": 6
+                    },
+                    "pairedTimestamp": 0,
+                    "pairingCode": "AAAAAA",
+                    "upgradeRequired": false
+                }
+            ],
+            "systemId": "guid"
+        }
+    ]
+}

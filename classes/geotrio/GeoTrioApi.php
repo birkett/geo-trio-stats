@@ -6,6 +6,7 @@ namespace GeoTrio\classes\geotrio;
 
 use CurlHandle;
 use GeoTrio\classes\geotrio\dto\AuthTokenResponseDto;
+use GeoTrio\classes\geotrio\dto\DeviceDetailsDto;
 use GeoTrio\classes\geotrio\dto\GeoTrioApiPeriodicDataResponse;
 use JsonException;
 use GeoTrio\classes\geotrio\dto\CredentialsDto;
@@ -129,6 +130,8 @@ class GeoTrioApi
 
     /**
      * @return string
+     *
+     * @throws JsonException
      */
     private function getDeviceId(): string
     {
@@ -153,10 +156,10 @@ class GeoTrioApi
             throw new GeoApiException('Failed to request device ID.');
         }
 
-        $data = JSON_decode($resp, false);
+        $deviceDetails = new DeviceDetailsDto(json_decode($resp, true, 10, JSON_THROW_ON_ERROR));
 
         // @TODO: This currently assumes one device per account. Support multiple.
-        $deviceId = $data->systemRoles[0]->systemId ?? null;
+        $deviceId = $deviceDetails->getSystemRoles()[0]->getSystemId();
 
         if (!$deviceId) {
             curl_close($this->curl);

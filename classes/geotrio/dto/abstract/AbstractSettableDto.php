@@ -35,4 +35,24 @@ abstract class AbstractSettableDto implements JsonSerializable
             $this->{$key} = $value;
         }
     }
+
+    /**
+     * @param string $classProperty
+     * @param string $dtoClass
+     * @param mixed $value
+     *
+     * @return void
+     */
+    protected function setDtoArray(string $classProperty, string $dtoClass, mixed $value): void
+    {
+        if (!is_array($value)) {
+            return;
+        }
+
+        $this->{$classProperty} = [];
+
+        foreach ($value as $v) {
+            $this->{$classProperty}[] = new $dtoClass($v);
+        }
+    }
 }

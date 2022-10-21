@@ -33,13 +33,7 @@ final class SystemDetailDto extends AbstractSettableDto
         foreach ($data as $key => $value) {
             switch ($key) {
                 case 'devices':
-                    if (is_array($value)) {
-                        $this->devices = [];
-
-                        foreach ($value as $device) {
-                            $this->devices[] = new DeviceDto($device);
-                        }
-                    }
+                    $this->setDtoArray($key, DeviceDto::class, $value);
 
                     break;
 

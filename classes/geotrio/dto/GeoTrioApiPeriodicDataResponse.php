@@ -154,105 +154,55 @@ final class GeoTrioApiPeriodicDataResponse extends AbstractSettableDto implement
         foreach ($data as $key => $value) {
             switch ($key) {
                 case 'totalConsumptionList':
-                    if (is_array($value)) {
-                        $this->totalConsumptionList = [];
-
-                        foreach ($value as $consumptionEntry) {
-                            $this->totalConsumptionList[] = new ConsumptionListDto($consumptionEntry);
-                        }
-                    }
+                    $this->setDtoArray($key, ConsumptionListDto::class, $value);
 
                     break;
 
                 case 'supplyStatusList':
-                    if (is_array($value)) {
-                        $this->supplyStatusList = [];
-
-                        foreach ($value as $supplyStatus) {
-                            $this->supplyStatusList[] = new SupplyStatusDto($supplyStatus);
-                        }
-                    }
+                    $this->setDtoArray($key, SupplyStatusDto::class, $value);
 
                     break;
 
                 case 'billToDateList':
-                    if (is_array($value)) {
-                        $this->billToDateList = [];
-
-                        foreach ($value as $billToDateEntry) {
-                            $this->billToDateList[] = new BillToDateListDto($billToDateEntry);
-                        }
-                    }
+                    $this->setDtoArray($key, BillToDateListDto::class, $value);
 
                     break;
 
                 case 'activeTariffList':
-                    if (is_array($value)) {
-                        $this->activeTariffList = [];
-
-                        foreach ($value as $activeTariff) {
-                            $this->activeTariffList[] = new ActiveTariffDto($activeTariff);
-                        }
-                    }
+                    $this->setDtoArray($key, ActiveTariffDto::class, $value);
 
                     break;
 
                 case 'currentCostsElec':
                 case 'currentCostsGas':
-                    if (is_array($value)) {
-                        $this->{$key} = [];
-
-                        foreach ($value as $cost) {
-                            $this->{$key}[] = new EnergyCostDto($cost);
-                        }
-                    }
+                    $this->setDtoArray($key, EnergyCostDto::class, $value);
 
                     break;
 
                 case 'billingMode':
-                    if (is_array($value)) {
-                        $this->billingMode = [];
-
-                        foreach ($value as $billingMode) {
-                            $this->billingMode[] = new BillingModeDto($billingMode);
-                        }
-                    }
+                    $this->setDtoArray($key, BillingModeDto::class, $value);
 
                     break;
 
                 case 'budgetRagStatusDetails':
-                    if (is_array($value)) {
-                        $this->budgetRagStatusDetails = [];
-
-                        foreach ($value as $budgetRagStatus) {
-                            $this->budgetRagStatusDetails[] = new BudgetRagStatusDto($budgetRagStatus);
-                        }
-                    }
+                    $this->setDtoArray($key, BudgetRagStatusDto::class, $value);
 
                     break;
 
                 case 'budgetSettingDetails':
-                    if (is_array($value)) {
-                        $this->budgetSettingDetails = [];
-
-                        foreach ($value as $setting) {
-                            $this->budgetSettingDetails[] = new BudgetSettingDto($setting);
-                        }
-                    }
+                    $this->setDtoArray($key, BudgetSettingDto::class, $value);
 
                     break;
 
                 case 'setPoints':
-                    $this->setPoints = new SetPointsDto($value);
+                    if (is_array($value)) {
+                        $this->setPoints = new SetPointsDto($value);
+                    }
 
                     break;
 
                 case 'seasonalAdjustments':
-                    $this->seasonalAdjustments = [];
-
-                    foreach ($value as $adjustment) {
-                        $this->seasonalAdjustments[] = new SeasonalAdjustmentDto($adjustment);
-                    }
+                    $this->setDtoArray($key, SeasonalAdjustmentDto::class, $value);
 
                     break;
 

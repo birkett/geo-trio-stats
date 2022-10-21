@@ -26,7 +26,9 @@ final class SetPointsDto extends AbstractSettableDto
     protected function set(array $data): void
     {
         foreach ($data as $key => $value) {
-            $this->{$key} = new SetPointDto($value);
+            if (is_array($value)) {
+                $this->{$key} = new SetPointDto($value);
+            }
         }
     }
 }

@@ -121,24 +121,12 @@ final class GeoTrioApiLiveDataResponse extends AbstractSettableDto implements Ge
         foreach ($data as $key => $value) {
             switch ($key) {
                 case 'power':
-                    if (is_array($value)) {
-                        $this->power = [];
-
-                        foreach ($value as $powerEntry) {
-                            $this->power[] = new PowerResponseDto($powerEntry);
-                        }
-                    }
+                    $this->setDtoArray($key, PowerResponseDto::class, $value);
 
                     break;
 
                 case 'systemStatus':
-                    if (is_array($value)) {
-                        $this->systemStatus = [];
-
-                        foreach ($value as $statusEntry) {
-                            $this->systemStatus[] = new SystemStatusDto($statusEntry);
-                        }
-                    }
+                    $this->setDtoArray($key, SystemStatusDto::class, $value);
 
                     break;
 

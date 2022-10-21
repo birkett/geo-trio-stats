@@ -53,7 +53,9 @@ final class DeviceDto extends AbstractSettableDto
         foreach ($data as $key => $value) {
             switch ($key) {
                 case 'versionNumber':
-                    $this->versionNumber = new VersionNumberDto($value);
+                    if (is_array($value)) {
+                        $this->versionNumber = new VersionNumberDto($value);
+                    }
 
                     break;
 

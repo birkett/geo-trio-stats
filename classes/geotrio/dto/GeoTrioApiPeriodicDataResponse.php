@@ -15,13 +15,12 @@ use GeoTrio\classes\geotrio\dto\components\EnergyCostDto;
 use GeoTrio\classes\geotrio\dto\components\SeasonalAdjustmentDto;
 use GeoTrio\classes\geotrio\dto\components\SetPointsDto;
 use GeoTrio\classes\geotrio\dto\components\SupplyStatusDto;
+use GeoTrio\classes\geotrio\dto\interfaces\GeoTrioApiResponseInterface;
+use GeoTrio\classes\geotrio\dto\traits\TtlTrait;
 
-final class GeoTrioApiPeriodicDataResponse extends AbstractSettableDto
+final class GeoTrioApiPeriodicDataResponse extends AbstractSettableDto implements GeoTrioApiResponseInterface
 {
-    /**
-     * @var int
-     */
-    protected int $ttl;
+    use TtlTrait;
 
     /**
      * @var int

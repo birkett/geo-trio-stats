@@ -8,9 +8,13 @@ use GeoTrio\classes\geotrio\dto\abstract\AbstractSettableDto;
 use GeoTrio\classes\geotrio\dto\components\PowerResponseDto;
 use GeoTrio\classes\geotrio\dto\components\SystemStatusDto;
 use GeoTrio\classes\geotrio\dto\components\ZigbeeStatusDto;
+use GeoTrio\classes\geotrio\dto\interfaces\GeoTrioApiResponseInterface;
+use GeoTrio\classes\geotrio\dto\traits\TtlTrait;
 
-final class GeoTrioApiLiveDataResponse extends AbstractSettableDto
+final class GeoTrioApiLiveDataResponse extends AbstractSettableDto implements GeoTrioApiResponseInterface
 {
+    use TtlTrait;
+
     /***
      * @var int
      */
@@ -106,19 +110,6 @@ final class GeoTrioApiLiveDataResponse extends AbstractSettableDto
      * @var int
      */
     protected int $temperatureTimestamp;
-
-    /**
-     * @var int
-     */
-    protected int $ttl;
-
-    /**
-     * @return int
-     */
-    public function getTtl(): int
-    {
-        return $this->ttl;
-    }
 
     /**
      * @param array $data

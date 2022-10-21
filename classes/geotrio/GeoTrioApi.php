@@ -78,10 +78,9 @@ class GeoTrioApi
      */
     public function getLiveData(): GeoTrioApiLiveDataResponse
     {
-        $response = $this->getData(self::LIVEDATA_URL);
-        $responseArray = json_decode($response, true, 10, JSON_THROW_ON_ERROR);
-
-        return new GeoTrioApiLiveDataResponse($responseArray);
+        return new GeoTrioApiLiveDataResponse(
+            $this->getData(self::LIVEDATA_URL)
+        );
     }
 
     /**
@@ -91,18 +90,19 @@ class GeoTrioApi
      */
     public function getPeriodicData(): GeoTrioApiPeriodicDataResponse
     {
-        $response = $this->getData(self::PERIODIC_DATA_URL);
-        $responseArray = json_decode($response, true, 10, JSON_THROW_ON_ERROR);
-
-        return new GeoTrioApiPeriodicDataResponse($responseArray);
+        return new GeoTrioApiPeriodicDataResponse(
+            $this->getData(self::PERIODIC_DATA_URL)
+        );
     }
 
     /**
      * @param string $api
      *
-     * @return string
+     * @return array
+     *
+     * @throws JsonException
      */
-    private function getData(string $api): string
+    private function getData(string $api): array
     {
         $this->setAccessToken();
 
@@ -123,7 +123,7 @@ class GeoTrioApi
             throw new GeoApiException('Failed to fetch live data, code ' . $code);
         }
 
-        return $resp;
+        return json_decode($resp, true, 10, JSON_THROW_ON_ERROR);
     }
 
     /**

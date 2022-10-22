@@ -20,14 +20,6 @@ trait TtlTrait
     }
 
     /**
-     * @return string
-     */
-    public function getTtlAsTimeString(): string
-    {
-        return sprintf('+%d seconds', $this->getTtl());
-    }
-
-    /**
      * @return bool
      */
     public function hasValidTtl(): bool

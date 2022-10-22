@@ -9,9 +9,9 @@ use GeoTrio\interfaces\OutputCacheInterface;
 trait CachedOutputTrait
 {
     /**
-     * @var string
+     * @var int
      */
-    private string $cacheTime = OutputCacheInterface::DEFAULT_CACHE_TIME;
+    private int $cacheTime = OutputCacheInterface::DEFAULT_CACHE_TIME;
 
     /**
      * @var OutputCacheInterface|null
@@ -34,13 +34,21 @@ trait CachedOutputTrait
     }
 
     /**
-     * @param string $cacheTime
+     * @return int
+     */
+    protected function getCacheTime(): int
+    {
+        return $this->cacheTime;
+    }
+
+    /**
+     * @param int $cacheTimeSeconds
      *
      * @return void
      */
-    protected function setCacheTime(string $cacheTime): void
+    protected function setCacheTime(int $cacheTimeSeconds): void
     {
-        $this->cacheTime = $cacheTime;
+        $this->cacheTime = $cacheTimeSeconds;
     }
 
     /**

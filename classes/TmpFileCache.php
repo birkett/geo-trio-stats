@@ -29,10 +29,11 @@ final class TmpFileCache implements OutputCacheInterface
     /**
      * {@inheritDoc}
      */
-    public function set(string $key, string $value, string $expiryTime): void
+    public function set(string $key, string $value, int $cacheTimeSeconds): void
     {
         $fullKey = $this->generateKey($key);
-        $timestamp = (new DateTimeImmutable())->modify($expiryTime)->format(DATE_ATOM);
+        $cacheTimeModifier = sprintf('+%d seconds', $cacheTimeSeconds);
+        $timestamp = (new DateTimeImmutable())->modify($cacheTimeModifier)->format(DATE_ATOM);
 
         $this->writeTmpFile($fullKey, base64_encode($value));
         $this->writeTmpFile($fullKey . self::TIMESTAMP_KET_SUFFIX, base64_encode($timestamp));

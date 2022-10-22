@@ -8,8 +8,8 @@ interface OutputCacheInterface
 {
     public const DEFAULT_CACHE_TIME = self::CACHE_TIME_30_SECONDS;
 
-    public const CACHE_TIME_30_SECONDS = '+30 second';
-    public const CACHE_TIME_1_HOUR = '+59 minute';
+    public const CACHE_TIME_30_SECONDS = 30;
+    public const CACHE_TIME_1_HOUR = 3600;
 
     /**
      * @param string $key
@@ -21,9 +21,9 @@ interface OutputCacheInterface
     /**
      * @param string $key
      * @param string $value
-     * @param string $expiryTime
+     * @param int $cacheTimeSeconds
      *
      * @return void
      */
-    public function set(string $key, string $value, string $expiryTime): void;
+    public function set(string $key, string $value, int $cacheTimeSeconds): void;
 }

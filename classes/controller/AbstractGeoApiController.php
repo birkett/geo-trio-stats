@@ -46,15 +46,10 @@ abstract class AbstractGeoApiController extends AbstractController
             return $cachedResponse;
         }
 
-        // @TODO: Make setCacheTime take int $seconds.
-        $selectedTtl = 30; // 30 seconds by default when we create the controller.
-
         // Take the longest TTL from all responses.
         foreach ($apiResponses as $apiResponse) {
-            // @TODO: Use $this->>getCacheTime().
-            if ($apiResponse->hasValidTtl() && $apiResponse->getTtl() > $selectedTtl) {
-                $selectedTtl = $apiResponse->getTtl();
-                $this->setCacheTime($apiResponse->getTtlAsTimeString());
+            if ($apiResponse->hasValidTtl() && $apiResponse->getTtl() > $this->getCacheTime()) {
+                $this->setCacheTime($apiResponse->getTtl());
             }
         }
 

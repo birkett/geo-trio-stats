@@ -12,11 +12,6 @@ interface TtlTraitInterface
     public function getTtl(): int;
 
     /**
-     * @return string
-     */
-    public function getTtlAsTimeString(): string;
-
-    /**
      * @return bool
      */
     public function hasValidTtl(): bool;

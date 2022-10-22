@@ -16,20 +16,20 @@ final class ActiveTariffDto extends AbstractSettableDto
     /**
      * @var int
      */
-    protected int $nextTariffStartTime;
+    protected int $nextTariffStartTime = 0;
 
     /**
      * @var float
      */
-    protected float $activeTariffPrice;
+    protected float $activeTariffPrice = 0.0;
 
     /**
      * @var float
      */
-    protected float $nextTariffPrice;
+    protected float $nextTariffPrice = 0.0;
 
     /**
      * @var bool
      */
-    protected bool $nextPriceAvailable;
+    protected bool $nextPriceAvailable = false;
 }

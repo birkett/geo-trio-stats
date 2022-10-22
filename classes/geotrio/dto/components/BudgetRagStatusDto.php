@@ -13,39 +13,40 @@ final class BudgetRagStatusDto extends AbstractSettableDto
     use CommodityTypeTrait;
     use ValueAvailableTrait;
 
-    /**
-     * @var string
-     */
-    protected string $currDay;
+    public const STATUS_UNKNOWN = 'UNKNOWN';
 
     /**
      * @var string
      */
-    protected string $yesterDay;
+    protected string $currDay = self::STATUS_UNKNOWN;
 
     /**
      * @var string
      */
-    protected string $currWeek;
+    protected string $yesterDay = self::STATUS_UNKNOWN;
 
     /**
      * @var string
      */
-    protected string $lastWeek;
+    protected string $currWeek = self::STATUS_UNKNOWN;
 
     /**
      * @var string
      */
-    protected string $currMth;
+    protected string $lastWeek = self::STATUS_UNKNOWN;
 
     /**
      * @var string
      */
-    protected string $lastMth;
+    protected string $currMth = self::STATUS_UNKNOWN;
 
     /**
      * @var string
      */
-    protected string $thisYear;
+    protected string $lastMth = self::STATUS_UNKNOWN;
 
+    /**
+     * @var string
+     */
+    protected string $thisYear = self::STATUS_UNKNOWN;
 }

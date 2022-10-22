@@ -11,10 +11,10 @@ final class VersionNumberDto extends AbstractSettableDto
     /**
      * @var int
      */
-    protected int $major;
+    protected int $major = 0;
 
     /**
      * @var int
      */
-    protected int $minor;
+    protected int $minor = 0;
 }

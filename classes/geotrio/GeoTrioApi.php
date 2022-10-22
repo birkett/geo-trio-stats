@@ -189,10 +189,7 @@ class GeoTrioApi
 
         $url = self::BASE_URL . self::LOGIN_URL;
 
-        $credentials = json_encode(new CredentialsDto([
-            'identity' => $this->username,
-            'password' => $this->password,
-        ]), JSON_THROW_ON_ERROR);
+        $credentials = json_encode(new CredentialsDto($this->username, $this->password), JSON_THROW_ON_ERROR);
 
         curl_setopt($this->curl, CURLOPT_URL, $url);
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $credentials);

@@ -8,20 +8,20 @@ use GeoTrio\classes\geotrio\dto\abstract\AbstractSettableDto;
 
 final class SystemRoleDto extends AbstractSettableDto
 {
-    /**
-     * @var string
-     */
-    protected string $name;
+    public const DEFAULT_NAME = '00000000-0000-0000-0000-000000000000';
+    public const DEFAULT_ID = '00000000-0000-0000-0000-000000000000';
+
+    protected string $name = self::DEFAULT_NAME;
 
     /**
      * @var string
      */
-    protected string $systemId;
+    protected string $systemId = self::DEFAULT_ID;
 
     /**
      * @var string[]
      */
-    protected array $roles;
+    protected array $roles = [];
 
     /**
      * @return string

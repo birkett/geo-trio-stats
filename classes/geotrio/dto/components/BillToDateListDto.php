@@ -16,20 +16,20 @@ final class BillToDateListDto extends AbstractSettableDto
     /**
      * @var float
      */
-    protected float $billToDate;
+    protected float $billToDate = 0.0;
 
     /**
      * @var int
      */
-    protected int $validUTC;
+    protected int $validUTC = 0;
 
     /**
      * @var int
      */
-    protected int $startUTC;
+    protected int $startUTC = 0;
 
     /**
      * @var int
      */
-    protected int $duration;
+    protected int $duration = 0;
 }

@@ -9,7 +9,7 @@ trait TtlTrait
     /**
      * @var int
      */
-    protected int $ttl;
+    protected int $ttl = 0;
 
     /**
      * @return int

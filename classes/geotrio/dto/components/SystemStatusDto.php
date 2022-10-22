@@ -8,23 +8,30 @@ use GeoTrio\classes\geotrio\dto\abstract\AbstractSettableDto;
 
 final class SystemStatusDto extends AbstractSettableDto
 {
-    /**
-     * @var string
-     */
-    protected string $component;
+    public const COMPONENT_DISPLAY = 'DISPLAY';
+    public const COMPONENT_ZIGBEE = 'ZIGBEE';
+    public const COMPONENT_ELECTRICITY = 'ELECTRICITY';
+    public const COMPONENT_GAS = 'GAS';
+    public const STATUS_OK = 'STATUS_OK';
+    public const ERROR_CODE_NONE = 'ERROR_CODE_NONE';
 
     /**
      * @var string
      */
-    protected string $statusType;
+    protected string $component = self::COMPONENT_DISPLAY;
 
     /**
      * @var string
      */
-    protected string $systemErrorCode;
+    protected string $statusType = self::STATUS_OK;
+
+    /**
+     * @var string
+     */
+    protected string $systemErrorCode = self::ERROR_CODE_NONE;
 
     /**
      * @var int
      */
-    protected int $systemErrorNumber;
+    protected int $systemErrorNumber = 0;
 }

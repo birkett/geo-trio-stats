@@ -9,9 +9,9 @@ use GeoTrio\classes\geotrio\dto\abstract\AbstractSettableDto;
 final class AuthTokenResponseDto extends AbstractSettableDto
 {
     /**
-     * @var string|null
+     * @var string
      */
-    protected string|null $accessToken;
+    protected string $accessToken = '';
 
     /**
      * @return bool

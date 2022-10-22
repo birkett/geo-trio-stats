@@ -17,102 +17,98 @@ final class GeoTrioApiLiveDataResponse extends AbstractSettableDto implements Ge
 {
     use TtlTrait;
 
-    /***
+    public const DEFAULT_ID = '00000000-0000-0000-0000-000000000000';
+
+    /**
      * @var int
      */
-    protected int $latestUtc;
+    protected int $latestUtc = 0;
 
     /**
      * @var string
      */
-    protected string $id;
+    protected string $id = self::DEFAULT_ID;
 
     /**
-     * @var PowerResponseDto[]|null
+     * @var PowerResponseDto[]
      */
     #[DtoArrayValue(PowerResponseDto::class)]
-    protected array|null $power;
+    protected array $power = [];
 
     /**
      * @var int
      */
-    protected int $powerTimestamp;
+    protected int $powerTimestamp = 0;
 
     /**
      * @var int
      */
-    protected int $localTime;
+    protected int $localTime = 0;
 
     /**
      * @var int
      */
-    protected int $localTimeTimestamp;
+    protected int $localTimeTimestamp = 0;
 
     /**
      * @TODO: Unknown structure. Needs implementing.
-     *
-     * @var array|null
      */
-    protected array|null $creditStatus;
+    protected array $creditStatus = [];
 
     /**
      * @var int
      */
-    protected int $creditStatusTimestamp;
+    protected int $creditStatusTimestamp = 0;
 
     /**
      * @TODO: Unknown structure. Needs implementing.
-     *
-     * @var array|null
      */
-    protected array|null $remainingCredit;
+    protected array $remainingCredit = [];
 
     /**
      * @var int
      */
-    protected int $remainingCreditTimestamp;
+    protected int $remainingCreditTimestamp = 0;
 
     /**
      * @var ZigbeeStatusDto|null
      */
     #[DtoValue(ZigbeeStatusDto::class)]
-    protected ZigbeeStatusDto|null $zigbeeStatus;
+    protected ZigbeeStatusDto|null $zigbeeStatus = null;
 
     /**
      * @var int
      */
-    protected int $zigbeeStatusTimestamp;
+    protected int $zigbeeStatusTimestamp = 0;
 
     /**
      * @TODO: Unknown structure. Needs implementing.
-     *
-     * @var array|null
      */
-    protected array|null $emergencyCredit;
+    protected array $emergencyCredit = [];
 
     /**
      * @var int
      */
-    protected int $emergencyCreditTimestamp;
+    protected int $emergencyCreditTimestamp = 0;
 
     /**
-     * @var SystemStatusDto[]|null
+     * @var SystemStatusDto[]
      */
     #[DtoArrayValue(SystemStatusDto::class)]
-    protected array|null $systemStatus;
+    protected array $systemStatus = [];
 
     /**
      * @var int
      */
-    protected int $systemStatusTimestamp;
+    protected int $systemStatusTimestamp = 0;
 
     /**
      * @var float
      */
-    protected float $temperature;
+    protected float $temperature = 0.0;
 
     /**
      * @var int
      */
-    protected int $temperatureTimestamp;
+    protected int $temperatureTimestamp = 0;
 }

@@ -9,39 +9,43 @@ use GeoTrio\classes\geotrio\dto\attributes\DtoValue;
 
 final class DeviceDto extends AbstractSettableDto
 {
+    public const DEVICE_TYPE_TRIO_II = 'TRIO_II_TB_GEO';
+    public const DEVICE_TYPE_WIFI = 'WIFI_MODULE';
+    public const DEFAULT_PAIRING_CODE = 'AAAAA';
+
     /**
      * @var string
      */
-    protected string $deviceType;
+    protected string $deviceType = self::DEVICE_TYPE_TRIO_II;
 
     /**
      * @var int
      */
-    protected int $sensorType;
+    protected int $sensorType = 0;
 
     /**
      * @var int
      */
-    protected int $nodeId;
+    protected int $nodeId = 0;
 
     /**
-     * @var VersionNumberDto
+     * @var VersionNumberDto|null
      */
     #[DtoValue(VersionNumberDto::class)]
-    protected VersionNumberDto $versionNumber;
+    protected VersionNumberDto|null $versionNumber = null;
 
     /**
      * @var int
      */
-    protected int $pairedTimestamp;
+    protected int $pairedTimestamp = 0;
 
     /**
      * @var string
      */
-    protected string $pairingCode;
+    protected string $pairingCode = self::DEFAULT_PAIRING_CODE;
 
     /**
      * @var bool
      */
-    protected bool $updateRequired;
+    protected bool $updateRequired = false;
 }

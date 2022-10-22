@@ -24,136 +24,136 @@ final class GeoTrioApiPeriodicDataResponse extends AbstractSettableDto implement
 {
     use TtlTrait;
 
+    public const DEFAULT_ID = '00000000-0000-0000-0000-000000000000';
+
     /**
      * @var int
      */
-    protected int $latestUtc;
+    protected int $latestUtc = 0;
 
     /**
      * @var string
      */
-    protected string $id;
+    protected string $id = self::DEFAULT_ID;
 
     /**
-     * @var ConsumptionListDto[]|null
+     * @var ConsumptionListDto[]
      */
     #[DtoArrayValue(ConsumptionListDto::class)]
-    protected array|null $totalConsumptionList;
+    protected array $totalConsumptionList = [];
 
     /**
      * @var int
      */
-    protected int $totalConsumptionTimestamp;
+    protected int $totalConsumptionTimestamp = 0;
 
     /**
-     * @var SupplyStatusDto[]|null
+     * @var SupplyStatusDto[]
      */
     #[DtoArrayValue(SupplyStatusDto::class)]
-    protected array|null $supplyStatusList;
+    protected array $supplyStatusList = [];
 
     /**
      * @var int
      */
-    protected int $supplyStatusTimestamp;
+    protected int $supplyStatusTimestamp = 0;
 
     /**
-     * @var BillToDateListDto[]|null
+     * @var BillToDateListDto[]
      */
     #[DtoArrayValue(BillToDateListDto::class)]
-    protected array|null $billToDateList;
+    protected array $billToDateList = [];
 
     /**
      * @var int
      */
-    protected int $billToDateTimestamp;
+    protected int $billToDateTimestamp = 0;
 
     /**
-     * @var ActiveTariffDto[]|null
+     * @var ActiveTariffDto[]
      */
     #[DtoArrayValue(ActiveTariffDto::class)]
-    protected array|null $activeTariffList;
+    protected array $activeTariffList = [];
 
     /**
      * @var int
      */
-    protected int $activeTariffTimestamp;
+    protected int $activeTariffTimestamp = 0;
 
     /**
-     * @var EnergyCostDto[]|null
+     * @var EnergyCostDto[]
      */
     #[DtoArrayValue(EnergyCostDto::class)]
-    protected array|null $currentCostsElec;
+    protected array $currentCostsElec = [];
 
     /**
      * @var int
      */
-    protected int $currentCostsElecTimestamp;
+    protected int $currentCostsElecTimestamp = 0;
 
     /**
-     * @var EnergyCostDto[]|null
+     * @var EnergyCostDto[]
      */
     #[DtoArrayValue(EnergyCostDto::class)]
-    protected array|null $currentCostsGas;
+    protected array $currentCostsGas = [];
 
     /**
      * @var int
      */
-    protected int $currentCostsGasTimestamp;
+    protected int $currentCostsGasTimestamp = 0;
 
     /**
      * @TODO: Unknown structure. Needs implementing.
-     *
-     * @var array|null
      */
-    protected array|null $prePayDebtList;
+    protected array $prePayDebtList = [];
 
     /**
      * @var int
      */
-    protected int $prePayDebtTimestamp;
+    protected int $prePayDebtTimestamp = 0;
 
     /**
-     * @var BillingModeDto[]|null
+     * @var BillingModeDto[]
      */
     #[DtoArrayValue(BillingModeDto::class)]
-    protected array|null $billingMode;
+    protected array $billingMode = [];
 
     /**
      * @var int
      */
-    protected int $billingModeTimestamp;
+    protected int $billingModeTimestamp = 0;
 
     /**
-     * @var BudgetRagStatusDto[]|null
+     * @var BudgetRagStatusDto[]
      */
     #[DtoArrayValue(BudgetRagStatusDto::class)]
-    protected array|null $budgetRagStatusDetails;
+    protected array $budgetRagStatusDetails = [];
 
     /**
      * @var int
      */
-    protected int $budgetRagStatusDetailsTimestamp;
+    protected int $budgetRagStatusDetailsTimestamp = 0;
 
     /**
-     * @var BudgetSettingDto[]|null
+     * @var BudgetSettingDto[]
      */
     #[DtoArrayValue(BudgetSettingDto::class)]
-    protected array|null $budgetSettingDetails;
+    protected array $budgetSettingDetails = [];
 
     /**
      * @var int
      */
-    protected int $budgetSettingDetailsTimestamp;
+    protected int $budgetSettingDetailsTimestamp = 0;
 
     /**
-     * @var SetPointsDto
+     * @var SetPointsDto|null
      */
     #[DtoValue(SetPointsDto::class)]
-    protected SetPointsDto $setPoints;
+    protected SetPointsDto|null $setPoints = null;
 
     /**
-     * @var SeasonalAdjustmentDto[]|null
+     * @var SeasonalAdjustmentDto[]
      */
     #[DtoArrayValue(SeasonalAdjustmentDto::class)]
-    protected array|null $seasonalAdjustments;
+    protected array $seasonalAdjustments = [];
 }

@@ -9,5 +9,5 @@ trait ValueAvailableTrait
     /**
      * @var bool
      */
-    protected bool $valueAvailable;
+    protected bool $valueAvailable = false;
 }

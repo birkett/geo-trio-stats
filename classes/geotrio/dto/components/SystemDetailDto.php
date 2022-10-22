@@ -9,19 +9,19 @@ use GeoTrio\classes\geotrio\dto\abstract\AbstractSettableDto;
 
 final class SystemDetailDto extends AbstractSettableDto
 {
-    /**
-     * @var string
-     */
-    protected string $name;
+    public const DEFAULT_NAME = 'System Name';
+    public const DEFAULT_ID = '00000000-0000-0000-0000-000000000000';
+
+    protected string $name = self::DEFAULT_NAME;
 
     /**
-     * @var DeviceDto[]|null
+     * @var DeviceDto[]
      */
     #[DtoArrayValue(DeviceDto::class)]
-    protected array|null $devices;
+    protected array $devices = [];
 
     /**
      * @var string
      */
-    protected string $systemId;
+    protected string $systemId = self::DEFAULT_ID;
 }

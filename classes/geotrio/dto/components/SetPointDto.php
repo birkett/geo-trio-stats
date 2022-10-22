@@ -11,10 +11,10 @@ final class SetPointDto extends AbstractSettableDto
     /**
      * @var int
      */
-    protected int $temperatureSetPoint;
+    protected int $temperatureSetPoint = 0;
 
     /**
      * @var int
      */
-    protected int $timeOfChange;
+    protected int $timeOfChange = 0;
 }

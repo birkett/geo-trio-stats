@@ -12,16 +12,16 @@ use GeoTrio\classes\geotrio\dto\components\SystemRoleDto;
 final class DeviceDetailsDto extends AbstractSettableDto
 {
     /**
-     * @var SystemRoleDto[]|null
+     * @var SystemRoleDto[]
      */
     #[DtoArrayValue(SystemRoleDto::class)]
-    protected array|null $systemRoles;
+    protected array $systemRoles = [];
 
     /**
-     * @var SystemDetailDto[]|null
+     * @var SystemDetailDto[]
      */
     #[DtoArrayValue(SystemDetailDto::class)]
-    protected array|null $systemDetails;
+    protected array $systemDetails = [];
 
     /**
      * @return SystemRoleDto[]

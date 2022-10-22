@@ -8,23 +8,25 @@ use GeoTrio\classes\geotrio\dto\abstract\AbstractSettableDto;
 
 final class ZigbeeStatusDto extends AbstractSettableDto
 {
-    /**
-     * @var string
-     */
-    protected string $electricityClusterStatus;
+    public const STATUS_CONNECTED = 'CONNECTED';
 
     /**
      * @var string
      */
-    protected string $gasClusterStatus;
+    protected string $electricityClusterStatus = self::STATUS_CONNECTED;
 
     /**
      * @var string
      */
-    protected string $hanStatus;
+    protected string $gasClusterStatus = self::STATUS_CONNECTED;
+
+    /**
+     * @var string
+     */
+    protected string $hanStatus = self::STATUS_CONNECTED;
 
     /**
      * @var int
      */
-    protected int $networkRssi;
+    protected int $networkRssi = 0;
 }

@@ -11,23 +11,27 @@ final class EnergyCostDto extends AbstractSettableDto
 {
     use CommodityTypeTrait;
 
+    public const DURATION_DAY = 'DAY';
+    public const DURATION_WEEK = 'WEEK';
+    public const DURATION_MONTH = 'MONTH';
+
     /**
      * @var string
      */
-    protected string $duration;
+    protected string $duration = self::DURATION_DAY;
 
     /**
      * @var int
      */
-    protected int $period;
+    protected int $period = 0;
 
     /**
      * @var float
      */
-    protected float $costAmount;
+    protected float $costAmount = 0.0;
 
     /**
      * @var float
      */
-    protected float $energyAmount;
+    protected float $energyAmount = 0.0;
 }

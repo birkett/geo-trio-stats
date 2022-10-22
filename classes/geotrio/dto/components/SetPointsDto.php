@@ -10,14 +10,14 @@ use GeoTrio\classes\geotrio\dto\abstract\AbstractSettableDto;
 final class SetPointsDto extends AbstractSettableDto
 {
     /**
-     * @var SetPointDto
+     * @var SetPointDto|null
      */
     #[DtoValue(SetPointDto::class)]
-    protected SetPointDto $daySetPoint;
+    protected SetPointDto|null $daySetPoint = null;
 
     /**
-     * @var SetPointDto
+     * @var SetPointDto|null
      */
     #[DtoValue(SetPointDto::class)]
-    protected SetPointDto $nightSetPoint;
+    protected SetPointDto|null $nightSetPoint = null;
 }

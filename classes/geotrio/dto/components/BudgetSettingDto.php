@@ -16,15 +16,15 @@ final class BudgetSettingDto extends AbstractSettableDto
     /**
      * @var float
      */
-    protected float $energyAmount;
+    protected float $energyAmount = 0.0;
 
     /**
      * @var float
      */
-    protected float $costAmount;
+    protected float $costAmount = 0.0;
 
     /**
      * @var int
      */
-    protected int $budgetToC;
+    protected int $budgetToC = 0;
 }

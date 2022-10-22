@@ -13,8 +13,10 @@ final class BillingModeDto extends AbstractSettableDto
     use CommodityTypeTrait;
     use ValueAvailableTrait;
 
+    public const BILLING_MODE_CREDIT = 'CREDIT';
+
     /**
      * @var string
      */
-    protected string $billingMode;
+    protected string $billingMode = self::BILLING_MODE_CREDIT;
 }

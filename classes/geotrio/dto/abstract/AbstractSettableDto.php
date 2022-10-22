@@ -98,8 +98,10 @@ abstract class AbstractSettableDto implements JsonSerializable
                 continue;
             }
 
-            // Value is not an array, and property is not a DTO.
-            $this->{$key} = $value;
+            // Value is not an array, property is not a DTO, and the value is not null.
+            if (!empty($value)) {
+                $this->{$key} = $value;
+            }
         }
     }
 }

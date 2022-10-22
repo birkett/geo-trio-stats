@@ -16,10 +16,10 @@ final class ConsumptionListDto extends AbstractSettableDto
     /**
      * @var int
      */
-    protected int $readingTime;
+    protected int $readingTime = 0;
 
     /**
      * @var float
      */
-    protected float $totalConsumption;
+    protected float $totalConsumption = 0.0;
 }

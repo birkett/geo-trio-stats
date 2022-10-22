@@ -11,8 +11,10 @@ final class SupplyStatusDto extends AbstractSettableDto
 {
     use CommodityTypeTrait;
 
+    public const SUPPLY_STATUS_ON = 'SUPPLYON';
+
     /**
      * @var string
      */
-    protected string $supplyStatus;
+    protected string $supplyStatus = self::SUPPLY_STATUS_ON;
 }

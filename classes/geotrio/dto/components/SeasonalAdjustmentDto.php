@@ -16,10 +16,10 @@ final class SeasonalAdjustmentDto extends AbstractSettableDto
     /**
      * @var bool
      */
-    protected bool $adjustment;
+    protected bool $adjustment = false;
 
     /**
      * @var int
      */
-    protected int $timeOfChange;
+    protected int $timeOfChange = 0;
 }

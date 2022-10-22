@@ -13,7 +13,7 @@ use GeoTrio\classes\geotrio\dto\components\ZigbeeStatusDto;
 use GeoTrio\classes\geotrio\dto\interfaces\GeoTrioApiResponseInterface;
 use GeoTrio\classes\geotrio\dto\traits\TtlTrait;
 
-final class GeoTrioApiLiveDataResponse extends AbstractSettableDto implements GeoTrioApiResponseInterface
+final class LiveDataResponse extends AbstractSettableDto implements GeoTrioApiResponseInterface
 {
     use TtlTrait;
 

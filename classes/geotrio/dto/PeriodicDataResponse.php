@@ -20,7 +20,7 @@ use GeoTrio\classes\geotrio\dto\components\SupplyStatusDto;
 use GeoTrio\classes\geotrio\dto\interfaces\GeoTrioApiResponseInterface;
 use GeoTrio\classes\geotrio\dto\traits\TtlTrait;
 
-final class GeoTrioApiPeriodicDataResponse extends AbstractSettableDto implements GeoTrioApiResponseInterface
+final class PeriodicDataResponse extends AbstractSettableDto implements GeoTrioApiResponseInterface
 {
     use TtlTrait;
 

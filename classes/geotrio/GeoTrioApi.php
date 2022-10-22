@@ -7,10 +7,10 @@ namespace GeoTrio\classes\geotrio;
 use CurlHandle;
 use GeoTrio\classes\geotrio\dto\AuthTokenResponseDto;
 use GeoTrio\classes\geotrio\dto\DeviceDetailsDto;
-use GeoTrio\classes\geotrio\dto\GeoTrioApiPeriodicDataResponse;
+use GeoTrio\classes\geotrio\dto\PeriodicDataResponse;
 use JsonException;
 use GeoTrio\classes\geotrio\dto\CredentialsDto;
-use GeoTrio\classes\geotrio\dto\GeoTrioApiLiveDataResponse;
+use GeoTrio\classes\geotrio\dto\LiveDataResponse;
 use GeoTrio\classes\TmpFileCache;
 use GeoTrio\interfaces\OutputCacheInterface;
 use GeoTrio\traits\CachedOutputTrait;
@@ -74,25 +74,25 @@ class GeoTrioApi
     }
 
     /**
-     * @return GeoTrioApiLiveDataResponse
+     * @return LiveDataResponse
      *
      * @throws JsonException
      */
-    public function getLiveData(): GeoTrioApiLiveDataResponse
+    public function getLiveData(): LiveDataResponse
     {
-        return new GeoTrioApiLiveDataResponse(
+        return new LiveDataResponse(
             $this->getData(self::LIVEDATA_URL)
         );
     }
 
     /**
-     * @return GeoTrioApiPeriodicDataResponse
+     * @return PeriodicDataResponse
      *
      * @throws JsonException
      */
-    public function getPeriodicData(): GeoTrioApiPeriodicDataResponse
+    public function getPeriodicData(): PeriodicDataResponse
     {
-        return new GeoTrioApiPeriodicDataResponse(
+        return new PeriodicDataResponse(
             $this->getData(self::PERIODIC_DATA_URL)
         );
     }

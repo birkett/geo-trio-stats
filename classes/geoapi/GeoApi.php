@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace GeoTrioStats\classes\geoapi;
 
-use CurlHandle;
 use GeoTrioStats\classes\geoapi\dto\AuthTokenResponseDto;
+use GeoTrioStats\classes\geoapi\dto\components\SystemRoleDto;
 use GeoTrioStats\classes\geoapi\dto\DeviceDetailsDto;
 use GeoTrioStats\classes\geoapi\dto\interfaces\GeoApiResponseInterface;
 use GeoTrioStats\classes\geoapi\dto\PeriodicDataResponse;
@@ -33,14 +33,9 @@ class GeoApi
     private const PERIODIC_DATA_CACHE_NAME = 'PeriodicData';
 
     /**
-     * @var false|CurlHandle
-     */
-    private false|CurlHandle $curl;
-
-    /**
      * @var string[]
      */
-    private array $headers;
+    private array $apiRequestHeaders;
 
     /**
      * @var string
@@ -64,15 +59,10 @@ class GeoApi
         $this->username = $username;
         $this->password = $password;
 
-        $this->headers = [
+        $this->apiRequestHeaders = [
             'Accept: application/json',
             'Content-Type: application/json',
         ];
-
-        $this->curl = curl_init();
-
-        curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($this->curl, CURLOPT_HTTPHEADER, $this->headers);
     }
 
     /**
@@ -130,22 +120,9 @@ class GeoApi
         $responses = [];
 
         foreach ($deviceIds as $deviceId) {
-            $url = self::BASE_URL . $api . $deviceId;
+            $response = $this->getApiResponse(self::BASE_URL . $api . $deviceId);
 
-            curl_setopt($this->curl, CURLOPT_URL, $url);
-            curl_setopt($this->curl, CURLOPT_POSTFIELDS, null);
-            curl_setopt($this->curl, CURLOPT_POST, false);
-
-            $resp = curl_exec($this->curl);
-            $code = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
-
-            if (false === $resp || $code > 200) {
-                curl_close($this->curl);
-
-                throw new GeoApiException('Failed to fetch live data, code ' . $code);
-            }
-
-            $responses[] = Json::decodeToArray($resp);
+            $responses[] = Json::decodeToArray($response);
         }
 
         return $responses;
@@ -164,33 +141,15 @@ class GeoApi
             return explode(',', $cachedDeviceIds);
         }
 
-        $url = self::BASE_URL . self::DEVICE_DETAILS_URL;
+        $response = $this->getApiResponse(self::BASE_URL . self::DEVICE_DETAILS_URL);
+        $deviceDetails = new DeviceDetailsDto(Json::decodeToArray($response));
 
-        curl_setopt($this->curl, CURLOPT_URL, $url);
-        curl_setopt($this->curl, CURLOPT_POSTFIELDS, null);
-        curl_setopt($this->curl, CURLOPT_POST, false);
-
-        $resp = curl_exec($this->curl);
-        $code = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
-
-        if (false === $resp || $code  > 200) {
-            curl_close($this->curl);
-
-            throw new GeoApiException('Failed to request device ID.');
-        }
-
-        $deviceDetails = new DeviceDetailsDto(Json::decodeToArray($resp));
-
-        $deviceIds = [];
-
-        foreach ($deviceDetails->getSystemRoles() as $role) {
-            $deviceIds[] = $role->getSystemId();
-        }
+        $deviceIds = array_map(static function (SystemRoleDto $role) {
+            return $role->getSystemId();
+        }, $deviceDetails->getSystemRoles());
 
         if (empty($deviceIds)) {
-            curl_close($this->curl);
-
-            throw new GeoApiException('Device ID not found, response was: ' . $resp);
+            throw new GeoApiException('Device ID not found, response was: ' . $response);
         }
 
         $this->cacheSet(static::class . self::DEVICE_ID_CACHE_NAME, implode(',', $deviceIds));
@@ -213,28 +172,12 @@ class GeoApi
             return;
         }
 
-        $url = self::BASE_URL . self::LOGIN_URL;
-
         $credentials = Json::encodeToString(new CredentialsDto($this->username, $this->password));
-
-        curl_setopt($this->curl, CURLOPT_URL, $url);
-        curl_setopt($this->curl, CURLOPT_POSTFIELDS, $credentials);
-
-        $resp = curl_exec($this->curl);
-        $code = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
-
-        if (false === $resp || $code > 200) {
-            curl_close($this->curl);
-
-            throw new GeoApiException('Failed to log in, code ' . $code);
-        }
-
-        $authResponse = new AuthTokenResponseDto(Json::decodeToArray($resp));
+        $response = $this->getApiResponse(self::BASE_URL . self::LOGIN_URL, $credentials);
+        $authResponse = new AuthTokenResponseDto(Json::decodeToArray($response));
 
         if (!$authResponse->hasToken()) {
-            curl_close($this->curl);
-
-            throw new GeoApiException('Authentication token not found. Response was: ' . $resp);
+            throw new GeoApiException('Authentication token not found. Response was: ' . $response);
         }
 
         $this->cacheSet(static::class . self::AUTH_TOKEN_CACHE_NAME, $authResponse->getAccessToken());
@@ -248,8 +191,35 @@ class GeoApi
      */
     private function setAccessTokenHeader(string $accessToken): void
     {
-        $this->headers[] = 'Authorization: Bearer ' . $accessToken;
+        $this->apiRequestHeaders[] = 'Authorization: Bearer ' . $accessToken;
+    }
 
-        curl_setopt($this->curl, CURLOPT_HTTPHEADER, $this->headers);
+    /**
+     * @param string $url
+     * @param string|null $postData
+     *
+     * @return string
+     */
+    private function getApiResponse(string $url, string $postData = null): string
+    {
+        $curl = curl_init();
+
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $this->apiRequestHeaders);
+
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $postData ?: null);
+        curl_setopt($curl, CURLOPT_POST, (bool) $postData);
+
+        $resp = curl_exec($curl);
+        $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        curl_close($curl);
+
+        if (false === $resp || $code > 200) {
+            throw new GeoApiException('Failed to fetch live data, code ' . $code);
+        }
+
+        return $resp;
     }
 }

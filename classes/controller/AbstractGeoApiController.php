@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace GeoTrio\classes\controller;
 
-use GeoTrio\classes\geotrio\dto\interfaces\GeoTrioApiResponseInterface;
-use GeoTrio\classes\geotrio\GeoTrioApi;
+use GeoTrio\classes\geoapi\dto\interfaces\GeoApiResponseInterface;
+use GeoTrio\classes\geoapi\GeoApi;
 use GeoTrio\classes\Json;
 use JsonException;
 use GeoTrio\classes\TmpFileCache;
@@ -33,7 +33,7 @@ abstract class AbstractGeoApiController extends AbstractController
     }
 
     /**
-     * @param GeoTrioApiResponseInterface[] $apiResponses
+     * @param GeoApiResponseInterface[] $apiResponses
      *
      * @return string
      *
@@ -62,10 +62,10 @@ abstract class AbstractGeoApiController extends AbstractController
     }
 
     /**
-     * @return GeoTrioApi
+     * @return GeoApi
      */
-    protected static function createGeoApi(): GeoTrioApi
+    protected static function createGeoApi(): GeoApi
     {
-        return new GeoTrioApi(getenv('GEO_API_USERNAME'), getenv('GEO_API_PASSWORD'));
+        return new GeoApi(getenv('GEO_API_USERNAME'), getenv('GEO_API_PASSWORD'));
     }
 }

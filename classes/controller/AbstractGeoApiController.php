@@ -32,13 +32,13 @@ abstract class AbstractGeoApiController extends AbstractController
     }
 
     /**
-     * @param GeoTrioApiResponseInterface $apiResponse
+     * @param GeoTrioApiResponseInterface[] $apiResponses
      *
      * @return string
      *
      * @throws JsonException
      */
-    protected function sharedGetController(GeoTrioApiResponseInterface $apiResponse): string
+    protected function sharedGetController(array $apiResponses): string
     {
         $cachedResponse = $this->cacheGet(static::class);
 
@@ -46,11 +46,19 @@ abstract class AbstractGeoApiController extends AbstractController
             return $cachedResponse;
         }
 
-        if ($apiResponse->hasValidTtl()) {
-            $this->setCacheTime($apiResponse->getTtlAsTimeString());
+        // @TODO: Make setCacheTime take int $seconds.
+        $selectedTtl = 30; // 30 seconds by default when we create the controller.
+
+        // Take the longest TTL from all responses.
+        foreach ($apiResponses as $apiResponse) {
+            // @TODO: Use $this->>getCacheTime().
+            if ($apiResponse->hasValidTtl() && $apiResponse->getTtl() > $selectedTtl) {
+                $selectedTtl = $apiResponse->getTtl();
+                $this->setCacheTime($apiResponse->getTtlAsTimeString());
+            }
         }
 
-        $response = json_encode($apiResponse, JSON_THROW_ON_ERROR);
+        $response = json_encode($apiResponses, JSON_THROW_ON_ERROR);
 
         $this->cacheSet(static::class, $response);
 

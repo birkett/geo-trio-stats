@@ -7,6 +7,7 @@ namespace GeoTrio\classes\geotrio;
 use CurlHandle;
 use GeoTrio\classes\geotrio\dto\AuthTokenResponseDto;
 use GeoTrio\classes\geotrio\dto\DeviceDetailsDto;
+use GeoTrio\classes\geotrio\dto\interfaces\GeoTrioApiResponseInterface;
 use GeoTrio\classes\geotrio\dto\PeriodicDataResponse;
 use JsonException;
 use GeoTrio\classes\geotrio\dto\CredentialsDto;
@@ -74,27 +75,43 @@ class GeoTrioApi
     }
 
     /**
-     * @return LiveDataResponse
+     * @return LiveDataResponse[]
      *
      * @throws JsonException
      */
-    public function getLiveData(): LiveDataResponse
+    public function getLiveData(): array
     {
-        return new LiveDataResponse(
-            $this->getData(self::LIVEDATA_URL)
-        );
+        return $this->getResponseArray(self::LIVEDATA_URL, LiveDataResponse::class);
     }
 
     /**
-     * @return PeriodicDataResponse
+     * @return PeriodicDataResponse[]
      *
      * @throws JsonException
      */
-    public function getPeriodicData(): PeriodicDataResponse
+    public function getPeriodicData(): array
     {
-        return new PeriodicDataResponse(
-            $this->getData(self::PERIODIC_DATA_URL)
-        );
+        return $this->getResponseArray(self::PERIODIC_DATA_URL, PeriodicDataResponse::class);
+    }
+
+    /**
+     * @param string $url
+     * @param string $responseDtoClassName
+     *
+     * @return GeoTrioApiResponseInterface[]
+     *
+     * @throws JsonException
+     */
+    private function getResponseArray(string $url, string $responseDtoClassName): array
+    {
+        $responses = $this->getData($url);
+        $return = [];
+
+        foreach ($responses as $response) {
+            $return[] = new $responseDtoClassName($response);
+        }
+
+        return $return;
     }
 
     /**
@@ -108,37 +125,42 @@ class GeoTrioApi
     {
         $this->setAccessToken();
 
-        $deviceId = $this->getDeviceId();
+        $deviceIds = $this->getDeviceIds();
+        $responses = [];
 
-        $url = self::BASE_URL . $api . $deviceId;
+        foreach ($deviceIds as $deviceId) {
+            $url = self::BASE_URL . $api . $deviceId;
 
-        curl_setopt($this->curl, CURLOPT_URL, $url);
-        curl_setopt($this->curl, CURLOPT_POSTFIELDS, null);
-        curl_setopt($this->curl, CURLOPT_POST, false);
+            curl_setopt($this->curl, CURLOPT_URL, $url);
+            curl_setopt($this->curl, CURLOPT_POSTFIELDS, null);
+            curl_setopt($this->curl, CURLOPT_POST, false);
 
-        $resp = curl_exec($this->curl);
-        $code = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
+            $resp = curl_exec($this->curl);
+            $code = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
 
-        if (false === $resp || $code > 200) {
-            curl_close($this->curl);
+            if (false === $resp || $code > 200) {
+                curl_close($this->curl);
 
-            throw new GeoApiException('Failed to fetch live data, code ' . $code);
+                throw new GeoApiException('Failed to fetch live data, code ' . $code);
+            }
+
+            $responses[] = json_decode($resp, true, 10, JSON_THROW_ON_ERROR);
         }
 
-        return json_decode($resp, true, 10, JSON_THROW_ON_ERROR);
+        return $responses;
     }
 
     /**
-     * @return string
+     * @return string[]
      *
      * @throws JsonException
      */
-    private function getDeviceId(): string
+    private function getDeviceIds(): array
     {
-        $cachedDeviceId = $this->cacheGet(static::class . self::DEVICE_ID_CACHE_NAME);
+        $cachedDeviceIds = $this->cacheGet(static::class . self::DEVICE_ID_CACHE_NAME);
 
-        if ($cachedDeviceId) {
-            return $cachedDeviceId;
+        if ($cachedDeviceIds) {
+            return explode(',', $cachedDeviceIds);
         }
 
         $url = self::BASE_URL . self::DEVICE_DETAILS_URL;
@@ -158,18 +180,21 @@ class GeoTrioApi
 
         $deviceDetails = new DeviceDetailsDto(json_decode($resp, true, 10, JSON_THROW_ON_ERROR));
 
-        // @TODO: This currently assumes one device per account. Support multiple.
-        $deviceId = $deviceDetails->getSystemRoles()[0]->getSystemId();
+        $deviceIds = [];
 
-        if (!$deviceId) {
+        foreach ($deviceDetails->getSystemRoles() as $role) {
+            $deviceIds[] = $role->getSystemId();
+        }
+
+        if (empty($deviceIds)) {
             curl_close($this->curl);
 
             throw new GeoApiException('Device ID not found, response was: ' . $resp);
         }
 
-        $this->cacheSet(static::class . self::DEVICE_ID_CACHE_NAME, $deviceId);
+        $this->cacheSet(static::class . self::DEVICE_ID_CACHE_NAME, implode(',', $deviceIds));
 
-        return $deviceId;
+        return $deviceIds;
     }
 
     /**

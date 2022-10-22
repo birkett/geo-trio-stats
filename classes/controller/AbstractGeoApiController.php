@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace GeoTrio\classes\controller;
+namespace GeoTrioStats\classes\controller;
 
-use GeoTrio\classes\geoapi\dto\interfaces\GeoApiResponseInterface;
-use GeoTrio\classes\geoapi\GeoApi;
-use GeoTrio\classes\Json;
+use GeoTrioStats\classes\geoapi\dto\interfaces\GeoApiResponseInterface;
+use GeoTrioStats\classes\geoapi\GeoApi;
+use GeoTrioStats\classes\Json;
+use GeoTrioStats\classes\TmpFileCache;
+use GeoTrioStats\interfaces\OutputCacheInterface;
+use GeoTrioStats\traits\CachedOutputTrait;
 use JsonException;
-use GeoTrio\classes\TmpFileCache;
-use GeoTrio\interfaces\OutputCacheInterface;
-use GeoTrio\traits\CachedOutputTrait;
 
 abstract class AbstractGeoApiController extends AbstractController
 {

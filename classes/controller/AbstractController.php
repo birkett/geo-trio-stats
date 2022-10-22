@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace GeoTrio\classes\controller;
+namespace GeoTrioStats\classes\controller;
 
-use GeoTrio\interfaces\ControllerInterface;
+use GeoTrioStats\interfaces\ControllerInterface;
 
 abstract class AbstractController implements ControllerInterface
 {

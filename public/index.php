@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace GeoTrio;
+namespace GeoTrioStats;
 
-use GeoTrio\classes\Autoloader;
-use GeoTrio\classes\controller\LiveDataController;
-use GeoTrio\classes\controller\PeriodicDataController;
-use GeoTrio\classes\EnvVarLoader;
-use GeoTrio\classes\Router;
+use GeoTrioStats\classes\Autoloader;
+use GeoTrioStats\classes\controller\LiveDataController;
+use GeoTrioStats\classes\controller\PeriodicDataController;
+use GeoTrioStats\classes\EnvVarLoader;
+use GeoTrioStats\classes\Router;
 
 require_once '../classes/Autoloader.php';
 
-Autoloader::init(['GeoTrio' => '../']);
+Autoloader::init(['GeoTrioStats' => '../']);
 EnvVarLoader::load('../.env');
 
 $router = new Router([

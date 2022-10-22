@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace GeoTrio\classes\geoapi\dto\abstract;
+namespace GeoTrioStats\classes\geoapi\dto\abstract;
 
-use GeoTrio\classes\geoapi\dto\attributes\DtoArrayValue;
-use GeoTrio\classes\geoapi\dto\attributes\DtoValue;
+use GeoTrioStats\classes\geoapi\dto\attributes\DtoArrayValue;
+use GeoTrioStats\classes\geoapi\dto\attributes\DtoValue;
 use JsonSerializable;
 use ReflectionClass;
 

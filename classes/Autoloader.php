@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace GeoTrio\classes;
+namespace GeoTrioStats\classes;
 
 use RuntimeException;
 

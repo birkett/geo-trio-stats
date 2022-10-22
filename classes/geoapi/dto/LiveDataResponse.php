@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace GeoTrio\classes\geoapi\dto;
+namespace GeoTrioStats\classes\geoapi\dto;
 
-use GeoTrio\classes\geoapi\dto\attributes\DtoArrayValue;
-use GeoTrio\classes\geoapi\dto\attributes\DtoValue;
-use GeoTrio\classes\geoapi\dto\abstract\AbstractSettableDto;
-use GeoTrio\classes\geoapi\dto\components\PowerResponseDto;
-use GeoTrio\classes\geoapi\dto\components\SystemStatusDto;
-use GeoTrio\classes\geoapi\dto\components\ZigbeeStatusDto;
-use GeoTrio\classes\geoapi\dto\interfaces\GeoApiResponseInterface;
-use GeoTrio\classes\geoapi\dto\traits\TtlTrait;
+use GeoTrioStats\classes\geoapi\dto\attributes\DtoArrayValue;
+use GeoTrioStats\classes\geoapi\dto\attributes\DtoValue;
+use GeoTrioStats\classes\geoapi\dto\abstract\AbstractSettableDto;
+use GeoTrioStats\classes\geoapi\dto\components\PowerResponseDto;
+use GeoTrioStats\classes\geoapi\dto\components\SystemStatusDto;
+use GeoTrioStats\classes\geoapi\dto\components\ZigbeeStatusDto;
+use GeoTrioStats\classes\geoapi\dto\interfaces\GeoApiResponseInterface;
+use GeoTrioStats\classes\geoapi\dto\traits\TtlTrait;
 
 final class LiveDataResponse extends AbstractSettableDto implements GeoApiResponseInterface
 {

@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace GeoTrio\classes\geoapi;
+namespace GeoTrioStats\classes\geoapi;
 
 use CurlHandle;
-use GeoTrio\classes\geoapi\dto\AuthTokenResponseDto;
-use GeoTrio\classes\geoapi\dto\DeviceDetailsDto;
-use GeoTrio\classes\geoapi\dto\interfaces\GeoApiResponseInterface;
-use GeoTrio\classes\geoapi\dto\PeriodicDataResponse;
-use GeoTrio\classes\Json;
+use GeoTrioStats\classes\geoapi\dto\AuthTokenResponseDto;
+use GeoTrioStats\classes\geoapi\dto\DeviceDetailsDto;
+use GeoTrioStats\classes\geoapi\dto\interfaces\GeoApiResponseInterface;
+use GeoTrioStats\classes\geoapi\dto\PeriodicDataResponse;
+use GeoTrioStats\classes\Json;
 use JsonException;
-use GeoTrio\classes\geoapi\dto\CredentialsDto;
-use GeoTrio\classes\geoapi\dto\LiveDataResponse;
-use GeoTrio\classes\TmpFileCache;
-use GeoTrio\interfaces\OutputCacheInterface;
-use GeoTrio\traits\CachedOutputTrait;
+use GeoTrioStats\classes\geoapi\dto\CredentialsDto;
+use GeoTrioStats\classes\geoapi\dto\LiveDataResponse;
+use GeoTrioStats\classes\TmpFileCache;
+use GeoTrioStats\interfaces\OutputCacheInterface;
+use GeoTrioStats\traits\CachedOutputTrait;
 
 class GeoApi
 {

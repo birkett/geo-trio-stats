@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace GeoTrio\classes\geoapi\dto\components;
+namespace GeoTrioStats\classes\geoapi\dto\components;
 
-use GeoTrio\classes\geoapi\dto\attributes\DtoValue;
-use GeoTrio\classes\geoapi\dto\abstract\AbstractSettableDto;
+use GeoTrioStats\classes\geoapi\dto\attributes\DtoValue;
+use GeoTrioStats\classes\geoapi\dto\abstract\AbstractSettableDto;
 
 final class SetPointsDto extends AbstractSettableDto
 {

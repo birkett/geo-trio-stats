@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace GeoTrio\classes\geoapi\dto;
+namespace GeoTrioStats\classes\geoapi\dto;
 
-use GeoTrio\classes\geoapi\dto\attributes\DtoArrayValue;
-use GeoTrio\classes\geoapi\dto\abstract\AbstractSettableDto;
-use GeoTrio\classes\geoapi\dto\components\SystemDetailDto;
-use GeoTrio\classes\geoapi\dto\components\SystemRoleDto;
+use GeoTrioStats\classes\geoapi\dto\attributes\DtoArrayValue;
+use GeoTrioStats\classes\geoapi\dto\abstract\AbstractSettableDto;
+use GeoTrioStats\classes\geoapi\dto\components\SystemDetailDto;
+use GeoTrioStats\classes\geoapi\dto\components\SystemRoleDto;
 
 final class DeviceDetailsDto extends AbstractSettableDto
 {

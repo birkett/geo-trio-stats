@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace GeoTrio\classes\geoapi\dto;
+namespace GeoTrioStats\classes\geoapi\dto;
 
-use GeoTrio\classes\geoapi\dto\abstract\AbstractSettableDto;
+use GeoTrioStats\classes\geoapi\dto\abstract\AbstractSettableDto;
 
 final class CredentialsDto extends AbstractSettableDto
 {

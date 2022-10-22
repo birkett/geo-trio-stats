@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace GeoTrio\classes\geoapi\dto\interfaces;
+namespace GeoTrioStats\classes\geoapi\dto\interfaces;
 
 interface TtlTraitInterface
 {

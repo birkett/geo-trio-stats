@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace GeoTrio\classes;
+namespace GeoTrioStats\classes;
 
 use DateTimeImmutable;
-use GeoTrio\interfaces\OutputCacheInterface;
+use GeoTrioStats\interfaces\OutputCacheInterface;
 
 final class TmpFileCache implements OutputCacheInterface
 {

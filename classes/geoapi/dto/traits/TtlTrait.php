@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace GeoTrio\classes\geoapi\dto\traits;
+namespace GeoTrioStats\classes\geoapi\dto\traits;
 
 trait TtlTrait
 {

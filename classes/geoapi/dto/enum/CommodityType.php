@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace GeoTrio\classes\geoapi\dto\enum;
+namespace GeoTrioStats\classes\geoapi\dto\enum;
 
 final class CommodityType
 {

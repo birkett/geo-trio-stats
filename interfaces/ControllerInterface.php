@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace GeoTrio\interfaces;
+namespace GeoTrioStats\interfaces;
 
 interface ControllerInterface
 {

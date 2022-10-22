@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace GeoTrio\classes;
+namespace GeoTrioStats\classes;
 
-use GeoTrio\classes\controller\NotFoundController;
-use GeoTrio\interfaces\ControllerInterface;
+use GeoTrioStats\classes\controller\NotFoundController;
+use GeoTrioStats\interfaces\ControllerInterface;
 
 final class Router
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace GeoTrio\classes\geoapi\dto\traits;
+namespace GeoTrioStats\classes\geoapi\dto\traits;
 
-use GeoTrio\classes\geoapi\dto\enum\CommodityType;
+use GeoTrioStats\classes\geoapi\dto\enum\CommodityType;
 
 trait CommodityTypeTrait
 {

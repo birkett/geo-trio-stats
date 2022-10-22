@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace GeoTrio\classes\geoapi\dto;
+namespace GeoTrioStats\classes\geoapi\dto;
 
-use GeoTrio\classes\geoapi\dto\attributes\DtoArrayValue;
-use GeoTrio\classes\geoapi\dto\attributes\DtoValue;
-use GeoTrio\classes\geoapi\dto\abstract\AbstractSettableDto;
-use GeoTrio\classes\geoapi\dto\components\ActiveTariffDto;
-use GeoTrio\classes\geoapi\dto\components\BillingModeDto;
-use GeoTrio\classes\geoapi\dto\components\BillToDateListDto;
-use GeoTrio\classes\geoapi\dto\components\BudgetRagStatusDto;
-use GeoTrio\classes\geoapi\dto\components\BudgetSettingDto;
-use GeoTrio\classes\geoapi\dto\components\ConsumptionListDto;
-use GeoTrio\classes\geoapi\dto\components\EnergyCostDto;
-use GeoTrio\classes\geoapi\dto\components\SeasonalAdjustmentDto;
-use GeoTrio\classes\geoapi\dto\components\SetPointsDto;
-use GeoTrio\classes\geoapi\dto\components\SupplyStatusDto;
-use GeoTrio\classes\geoapi\dto\interfaces\GeoApiResponseInterface;
-use GeoTrio\classes\geoapi\dto\traits\TtlTrait;
+use GeoTrioStats\classes\geoapi\dto\attributes\DtoArrayValue;
+use GeoTrioStats\classes\geoapi\dto\attributes\DtoValue;
+use GeoTrioStats\classes\geoapi\dto\abstract\AbstractSettableDto;
+use GeoTrioStats\classes\geoapi\dto\components\ActiveTariffDto;
+use GeoTrioStats\classes\geoapi\dto\components\BillingModeDto;
+use GeoTrioStats\classes\geoapi\dto\components\BillToDateListDto;
+use GeoTrioStats\classes\geoapi\dto\components\BudgetRagStatusDto;
+use GeoTrioStats\classes\geoapi\dto\components\BudgetSettingDto;
+use GeoTrioStats\classes\geoapi\dto\components\ConsumptionListDto;
+use GeoTrioStats\classes\geoapi\dto\components\EnergyCostDto;
+use GeoTrioStats\classes\geoapi\dto\components\SeasonalAdjustmentDto;
+use GeoTrioStats\classes\geoapi\dto\components\SetPointsDto;
+use GeoTrioStats\classes\geoapi\dto\components\SupplyStatusDto;
+use GeoTrioStats\classes\geoapi\dto\interfaces\GeoApiResponseInterface;
+use GeoTrioStats\classes\geoapi\dto\traits\TtlTrait;
 
 final class PeriodicDataResponse extends AbstractSettableDto implements GeoApiResponseInterface
 {

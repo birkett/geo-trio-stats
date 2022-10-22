@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace GeoTrio\classes\controller;
+namespace GeoTrioStats\classes\controller;
 
 final class NotFoundController extends AbstractController
 {

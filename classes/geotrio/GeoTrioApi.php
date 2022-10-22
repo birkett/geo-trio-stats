@@ -9,6 +9,7 @@ use GeoTrio\classes\geotrio\dto\AuthTokenResponseDto;
 use GeoTrio\classes\geotrio\dto\DeviceDetailsDto;
 use GeoTrio\classes\geotrio\dto\interfaces\GeoTrioApiResponseInterface;
 use GeoTrio\classes\geotrio\dto\PeriodicDataResponse;
+use GeoTrio\classes\Json;
 use JsonException;
 use GeoTrio\classes\geotrio\dto\CredentialsDto;
 use GeoTrio\classes\geotrio\dto\LiveDataResponse;
@@ -144,7 +145,7 @@ class GeoTrioApi
                 throw new GeoApiException('Failed to fetch live data, code ' . $code);
             }
 
-            $responses[] = json_decode($resp, true, 10, JSON_THROW_ON_ERROR);
+            $responses[] = Json::decodeToArray($resp);
         }
 
         return $responses;
@@ -178,7 +179,7 @@ class GeoTrioApi
             throw new GeoApiException('Failed to request device ID.');
         }
 
-        $deviceDetails = new DeviceDetailsDto(json_decode($resp, true, 10, JSON_THROW_ON_ERROR));
+        $deviceDetails = new DeviceDetailsDto(Json::decodeToArray($resp));
 
         $deviceIds = [];
 
@@ -214,7 +215,7 @@ class GeoTrioApi
 
         $url = self::BASE_URL . self::LOGIN_URL;
 
-        $credentials = json_encode(new CredentialsDto($this->username, $this->password), JSON_THROW_ON_ERROR);
+        $credentials = Json::encodeToString(new CredentialsDto($this->username, $this->password));
 
         curl_setopt($this->curl, CURLOPT_URL, $url);
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $credentials);
@@ -228,7 +229,7 @@ class GeoTrioApi
             throw new GeoApiException('Failed to log in, code ' . $code);
         }
 
-        $authResponse = new AuthTokenResponseDto(json_decode($resp, true, 10, JSON_THROW_ON_ERROR));
+        $authResponse = new AuthTokenResponseDto(Json::decodeToArray($resp));
 
         if (!$authResponse->hasToken()) {
             curl_close($this->curl);

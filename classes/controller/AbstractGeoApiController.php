@@ -6,6 +6,7 @@ namespace GeoTrio\classes\controller;
 
 use GeoTrio\classes\geotrio\dto\interfaces\GeoTrioApiResponseInterface;
 use GeoTrio\classes\geotrio\GeoTrioApi;
+use GeoTrio\classes\Json;
 use JsonException;
 use GeoTrio\classes\TmpFileCache;
 use GeoTrio\interfaces\OutputCacheInterface;
@@ -53,7 +54,7 @@ abstract class AbstractGeoApiController extends AbstractController
             }
         }
 
-        $response = json_encode($apiResponses, JSON_THROW_ON_ERROR);
+        $response = Json::encodeToString($apiResponses);
 
         $this->cacheSet(static::class, $response);
 

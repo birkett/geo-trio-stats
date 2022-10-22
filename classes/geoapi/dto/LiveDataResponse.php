@@ -10,14 +10,13 @@ use GeoTrioStats\classes\geoapi\dto\abstract\AbstractSettableDto;
 use GeoTrioStats\classes\geoapi\dto\components\PowerResponseDto;
 use GeoTrioStats\classes\geoapi\dto\components\SystemStatusDto;
 use GeoTrioStats\classes\geoapi\dto\components\ZigbeeStatusDto;
+use GeoTrioStats\classes\geoapi\dto\enum\Guid;
 use GeoTrioStats\classes\geoapi\dto\interfaces\GeoApiResponseInterface;
 use GeoTrioStats\classes\geoapi\dto\traits\TtlTrait;
 
 final class LiveDataResponse extends AbstractSettableDto implements GeoApiResponseInterface
 {
     use TtlTrait;
-
-    public const DEFAULT_ID = '00000000-0000-0000-0000-000000000000';
 
     /**
      * @var int
@@ -27,7 +26,7 @@ final class LiveDataResponse extends AbstractSettableDto implements GeoApiRespon
     /**
      * @var string
      */
-    protected string $id = self::DEFAULT_ID;
+    protected string $id = Guid::DEFAULT;
 
     /**
      * @var PowerResponseDto[]

@@ -5,18 +5,19 @@ declare(strict_types=1);
 namespace GeoTrioStats\classes\geoapi\dto\components;
 
 use GeoTrioStats\classes\geoapi\dto\abstract\AbstractSettableDto;
+use GeoTrioStats\classes\geoapi\dto\enum\Guid;
 
 final class SystemRoleDto extends AbstractSettableDto
 {
-    public const DEFAULT_NAME = '00000000-0000-0000-0000-000000000000';
-    public const DEFAULT_ID = '00000000-0000-0000-0000-000000000000';
-
-    protected string $name = self::DEFAULT_NAME;
+    /**
+     * @var string
+     */
+    protected string $name = Guid::DEFAULT;
 
     /**
      * @var string
      */
-    protected string $systemId = self::DEFAULT_ID;
+    protected string $systemId = Guid::DEFAULT;
 
     /**
      * @var string[]

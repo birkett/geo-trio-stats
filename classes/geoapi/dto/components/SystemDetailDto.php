@@ -6,13 +6,14 @@ namespace GeoTrioStats\classes\geoapi\dto\components;
 
 use GeoTrioStats\classes\geoapi\dto\attributes\DtoArrayValue;
 use GeoTrioStats\classes\geoapi\dto\abstract\AbstractSettableDto;
+use GeoTrioStats\classes\geoapi\dto\enum\Guid;
 
 final class SystemDetailDto extends AbstractSettableDto
 {
-    public const DEFAULT_NAME = 'System Name';
-    public const DEFAULT_ID = '00000000-0000-0000-0000-000000000000';
-
-    protected string $name = self::DEFAULT_NAME;
+    /**
+     * @var string
+     */
+    protected string $name = Guid::DEFAULT;
 
     /**
      * @var DeviceDto[]
@@ -23,5 +24,5 @@ final class SystemDetailDto extends AbstractSettableDto
     /**
      * @var string
      */
-    protected string $systemId = self::DEFAULT_ID;
+    protected string $systemId = Guid::DEFAULT;
 }

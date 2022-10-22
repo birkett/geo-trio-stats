@@ -17,14 +17,13 @@ use GeoTrioStats\classes\geoapi\dto\components\EnergyCostDto;
 use GeoTrioStats\classes\geoapi\dto\components\SeasonalAdjustmentDto;
 use GeoTrioStats\classes\geoapi\dto\components\SetPointsDto;
 use GeoTrioStats\classes\geoapi\dto\components\SupplyStatusDto;
+use GeoTrioStats\classes\geoapi\dto\enum\Guid;
 use GeoTrioStats\classes\geoapi\dto\interfaces\GeoApiResponseInterface;
 use GeoTrioStats\classes\geoapi\dto\traits\TtlTrait;
 
 final class PeriodicDataResponse extends AbstractSettableDto implements GeoApiResponseInterface
 {
     use TtlTrait;
-
-    public const DEFAULT_ID = '00000000-0000-0000-0000-000000000000';
 
     /**
      * @var int
@@ -34,7 +33,7 @@ final class PeriodicDataResponse extends AbstractSettableDto implements GeoApiRe
     /**
      * @var string
      */
-    protected string $id = self::DEFAULT_ID;
+    protected string $id = Guid::DEFAULT;
 
     /**
      * @var ConsumptionListDto[]

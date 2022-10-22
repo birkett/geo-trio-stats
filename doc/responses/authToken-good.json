@@ -1,0 +1,7 @@
+{
+    "username": "guid",
+    "email": "email@example.com",
+    "displayName": "email@example.com",
+    "validated": true,
+    "accessToken": "token"
+}

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace GeoTrio\classes\geotrio\dto;
 
+use GeoTrio\classes\geotrio\dto\attributes\DtoArrayValue;
+use GeoTrio\classes\geotrio\dto\attributes\DtoValue;
 use GeoTrio\classes\geotrio\dto\abstract\AbstractSettableDto;
 use GeoTrio\classes\geotrio\dto\components\ActiveTariffDto;
 use GeoTrio\classes\geotrio\dto\components\BillingModeDto;
@@ -22,23 +24,6 @@ final class GeoTrioApiPeriodicDataResponse extends AbstractSettableDto implement
 {
     use TtlTrait;
 
-    protected const PROPERTY_DTO_ARRAY_MAP = [
-        'totalConsumptionList' => ConsumptionListDto::class,
-        'supplyStatusList' => SupplyStatusDto::class,
-        'billToDateList' => BillToDateListDto::class,
-        'activeTariffList' => ActiveTariffDto::class,
-        'currentCostsElec' => EnergyCostDto::class,
-        'currentCostsGas' => EnergyCostDto::class,
-        'billingMode' => BillingModeDto::class,
-        'budgetRagStatusDetails' => BudgetRagStatusDto::class,
-        'budgetSettingDetails' => BudgetSettingDto::class,
-        'seasonalAdjustments' => SeasonalAdjustmentDto::class,
-    ];
-
-    protected const PROPERTY_DTO_MAP = [
-        'setPoints' => SetPointsDto::class,
-    ];
-
     /**
      * @var int
      */
@@ -52,6 +37,7 @@ final class GeoTrioApiPeriodicDataResponse extends AbstractSettableDto implement
     /**
      * @var ConsumptionListDto[]|null
      */
+    #[DtoArrayValue(ConsumptionListDto::class)]
     protected array|null $totalConsumptionList;
 
     /**
@@ -62,6 +48,7 @@ final class GeoTrioApiPeriodicDataResponse extends AbstractSettableDto implement
     /**
      * @var SupplyStatusDto[]|null
      */
+    #[DtoArrayValue(SupplyStatusDto::class)]
     protected array|null $supplyStatusList;
 
     /**
@@ -72,6 +59,7 @@ final class GeoTrioApiPeriodicDataResponse extends AbstractSettableDto implement
     /**
      * @var BillToDateListDto[]|null
      */
+    #[DtoArrayValue(BillToDateListDto::class)]
     protected array|null $billToDateList;
 
     /**
@@ -82,6 +70,7 @@ final class GeoTrioApiPeriodicDataResponse extends AbstractSettableDto implement
     /**
      * @var ActiveTariffDto[]|null
      */
+    #[DtoArrayValue(ActiveTariffDto::class)]
     protected array|null $activeTariffList;
 
     /**
@@ -92,6 +81,7 @@ final class GeoTrioApiPeriodicDataResponse extends AbstractSettableDto implement
     /**
      * @var EnergyCostDto[]|null
      */
+    #[DtoArrayValue(EnergyCostDto::class)]
     protected array|null $currentCostsElec;
 
     /**
@@ -102,6 +92,7 @@ final class GeoTrioApiPeriodicDataResponse extends AbstractSettableDto implement
     /**
      * @var EnergyCostDto[]|null
      */
+    #[DtoArrayValue(EnergyCostDto::class)]
     protected array|null $currentCostsGas;
 
     /**
@@ -124,6 +115,7 @@ final class GeoTrioApiPeriodicDataResponse extends AbstractSettableDto implement
     /**
      * @var BillingModeDto[]|null
      */
+    #[DtoArrayValue(BillingModeDto::class)]
     protected array|null $billingMode;
 
     /**
@@ -134,6 +126,7 @@ final class GeoTrioApiPeriodicDataResponse extends AbstractSettableDto implement
     /**
      * @var BudgetRagStatusDto[]|null
      */
+    #[DtoArrayValue(BudgetRagStatusDto::class)]
     protected array|null $budgetRagStatusDetails;
 
     /**
@@ -144,6 +137,7 @@ final class GeoTrioApiPeriodicDataResponse extends AbstractSettableDto implement
     /**
      * @var BudgetSettingDto[]|null
      */
+    #[DtoArrayValue(BudgetSettingDto::class)]
     protected array|null $budgetSettingDetails;
 
     /**
@@ -154,10 +148,12 @@ final class GeoTrioApiPeriodicDataResponse extends AbstractSettableDto implement
     /**
      * @var SetPointsDto
      */
+    #[DtoValue(SetPointsDto::class)]
     protected SetPointsDto $setPoints;
 
     /**
      * @var SeasonalAdjustmentDto[]|null
      */
+    #[DtoArrayValue(SeasonalAdjustmentDto::class)]
     protected array|null $seasonalAdjustments;
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace GeoTrio\classes\geotrio\dto;
 
+use GeoTrio\classes\geotrio\dto\attributes\DtoArrayValue;
+use GeoTrio\classes\geotrio\dto\attributes\DtoValue;
 use GeoTrio\classes\geotrio\dto\abstract\AbstractSettableDto;
 use GeoTrio\classes\geotrio\dto\components\PowerResponseDto;
 use GeoTrio\classes\geotrio\dto\components\SystemStatusDto;
@@ -14,15 +16,6 @@ use GeoTrio\classes\geotrio\dto\traits\TtlTrait;
 final class GeoTrioApiLiveDataResponse extends AbstractSettableDto implements GeoTrioApiResponseInterface
 {
     use TtlTrait;
-
-    protected const PROPERTY_DTO_ARRAY_MAP = [
-        'power' => PowerResponseDto::class,
-        'systemStatus' => SystemStatusDto::class,
-    ];
-
-    protected const PROPERTY_DTO_MAP = [
-        'zigbeeStatus' => ZigbeeStatusDto::class,
-    ];
 
     /***
      * @var int
@@ -37,6 +30,7 @@ final class GeoTrioApiLiveDataResponse extends AbstractSettableDto implements Ge
     /**
      * @var PowerResponseDto[]|null
      */
+    #[DtoArrayValue(PowerResponseDto::class)]
     protected array|null $power;
 
     /**
@@ -81,6 +75,7 @@ final class GeoTrioApiLiveDataResponse extends AbstractSettableDto implements Ge
     /**
      * @var ZigbeeStatusDto|null
      */
+    #[DtoValue(ZigbeeStatusDto::class)]
     protected ZigbeeStatusDto|null $zigbeeStatus;
 
     /**
@@ -103,6 +98,7 @@ final class GeoTrioApiLiveDataResponse extends AbstractSettableDto implements Ge
     /**
      * @var SystemStatusDto[]|null
      */
+    #[DtoArrayValue(SystemStatusDto::class)]
     protected array|null $systemStatus;
 
     /**

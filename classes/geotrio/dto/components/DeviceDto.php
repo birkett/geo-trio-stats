@@ -5,13 +5,10 @@ declare(strict_types=1);
 namespace GeoTrio\classes\geotrio\dto\components;
 
 use GeoTrio\classes\geotrio\dto\abstract\AbstractSettableDto;
+use GeoTrio\classes\geotrio\dto\attributes\DtoValue;
 
 final class DeviceDto extends AbstractSettableDto
 {
-    protected const PROPERTY_DTO_MAP = [
-        'versionNumber' => VersionNumberDto::class,
-    ];
-
     /**
      * @var string
      */
@@ -30,6 +27,7 @@ final class DeviceDto extends AbstractSettableDto
     /**
      * @var VersionNumberDto
      */
+    #[DtoValue(VersionNumberDto::class)]
     protected VersionNumberDto $versionNumber;
 
     /**

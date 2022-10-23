@@ -46,11 +46,11 @@ final class Router
             }
         }
 
-        if (!$matchedController instanceof ControllerInterface) {
+        if ($matchedController instanceof ControllerInterface) {
+            $content = $matchedController->{$methodName}();
+        } else {
             $matchedController = new NotFoundController();
             $content = $matchedController->get();
-        } else {
-            $content = $matchedController->{$methodName}();
         }
 
         $this->setResponseCode($matchedController->getResponseCode());

@@ -33,19 +33,9 @@ class GeoApi
     private const PERIODIC_DATA_CACHE_NAME = 'PeriodicData';
 
     /**
-     * @var string[]
+     * @var CredentialsDto
      */
-    private array $apiRequestHeaders;
-
-    /**
-     * @var string
-     */
-    private readonly string $username;
-
-    /**
-     * @var string
-     */
-    private readonly string $password;
+    private readonly CredentialsDto $credentials;
 
     /**
      * @param string $username
@@ -56,13 +46,7 @@ class GeoApi
         $this->setOutputCache(new TmpFileCache());
         $this->setCacheTime(OutputCacheInterface::CACHE_TIME_1_HOUR);
 
-        $this->username = $username;
-        $this->password = $password;
-
-        $this->apiRequestHeaders = [
-            'Accept: application/json',
-            'Content-Type: application/json',
-        ];
+        $this->credentials = new CredentialsDto($username, $password);
     }
 
     /**
@@ -114,8 +98,6 @@ class GeoApi
      */
     private function getData(string $api): array
     {
-        $this->setAccessToken();
-
         $deviceIds = $this->getDeviceIds();
         $responses = [];
 
@@ -158,22 +140,20 @@ class GeoApi
     }
 
     /**
-     * @return void
+     * @return string
      *
      * @throws JsonException
      */
-    private function setAccessToken(): void
+    private function getAccessToken(): string
     {
         $cachedToken = $this->cacheGet(static::class . self::AUTH_TOKEN_CACHE_NAME);
 
         if ($cachedToken) {
-            $this->setAccessTokenHeader($cachedToken);
-
-            return;
+            return $cachedToken;
         }
 
-        $credentials = Json::encodeToString(new CredentialsDto($this->username, $this->password));
-        $response = $this->getApiResponse(self::BASE_URL . self::LOGIN_URL, $credentials);
+        $credentials = Json::encodeToString($this->credentials);
+        $response = $this->getApiResponse(self::BASE_URL . self::LOGIN_URL, $credentials, false);
         $authResponse = new AuthTokenResponseDto(Json::decodeToArray($response));
 
         if (!$authResponse->hasToken()) {
@@ -181,45 +161,47 @@ class GeoApi
         }
 
         $this->cacheSet(static::class . self::AUTH_TOKEN_CACHE_NAME, $authResponse->getAccessToken());
-        $this->setAccessTokenHeader($authResponse->getAccessToken());
-    }
 
-    /**
-     * @param string $accessToken
-     *
-     * @return void
-     */
-    private function setAccessTokenHeader(string $accessToken): void
-    {
-        $this->apiRequestHeaders[] = 'Authorization: Bearer ' . $accessToken;
+        return $authResponse->getAccessToken();
     }
 
     /**
      * @param string $url
      * @param string|null $postData
+     * @param bool $needAccessToken
      *
      * @return string
+     *
+     * @throws JsonException
      */
-    private function getApiResponse(string $url, string $postData = null): string
+    private function getApiResponse(string $url, string $postData = null, bool $needAccessToken = true): string
     {
+        $headers = [
+            'Accept: application/json',
+            'Content-Type: application/json',
+        ];
+
+        if ($needAccessToken) {
+            $headers[] = 'Authorization: Bearer ' . $this->getAccessToken();
+        }
+
         $curl = curl_init();
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $this->apiRequestHeaders);
-
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $postData ?: null);
         curl_setopt($curl, CURLOPT_POST, (bool) $postData);
 
-        $resp = curl_exec($curl);
+        $response = curl_exec($curl);
         $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
         curl_close($curl);
 
-        if (false === $resp || $code > 200) {
+        if (!$response || $code !== 200) {
             throw new GeoApiException('Failed to fetch live data, code ' . $code);
         }
 
-        return $resp;
+        return $response;
     }
 }

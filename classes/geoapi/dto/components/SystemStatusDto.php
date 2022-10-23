@@ -10,10 +10,13 @@ final class SystemStatusDto extends AbstractSettableDto
 {
     public const COMPONENT_DISPLAY = 'DISPLAY';
     public const COMPONENT_ZIGBEE = 'ZIGBEE';
+    public const COMPONENT_WIFI = 'WIFI';
     public const COMPONENT_ELECTRICITY = 'ELECTRICITY';
     public const COMPONENT_GAS = 'GAS';
     public const STATUS_OK = 'STATUS_OK';
+    public const STATUS_ERROR = 'STATUS_ERROR';
     public const ERROR_CODE_NONE = 'ERROR_CODE_NONE';
+    public const ERROR_CODE_WIFI_NOT_CONNECTED = 'ERROR_CODE_WIFI_NOT_CONNECTED';
 
     /**
      * @var string

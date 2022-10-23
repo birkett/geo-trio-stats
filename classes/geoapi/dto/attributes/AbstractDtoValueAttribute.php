@@ -9,7 +9,7 @@ abstract class AbstractDtoValueAttribute
     /**
      * @var string
      */
-    private string $dtoClassName;
+    private readonly string $dtoClassName;
 
     /**
      * @param string $dtoClassName

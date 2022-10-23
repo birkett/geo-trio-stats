@@ -11,12 +11,12 @@ final class CredentialsDto extends AbstractSettableDto
     /**
      * @var string
      */
-    protected string $identity;
+    protected readonly string $identity;
 
     /**
      * @var string
      */
-    protected string $password;
+    protected readonly string $password;
 
     /**
      * @param string $username

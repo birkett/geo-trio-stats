@@ -40,12 +40,12 @@ class GeoApi
     /**
      * @var string
      */
-    private string $username;
+    private readonly string $username;
 
     /**
      * @var string
      */
-    private string $password;
+    private readonly string $password;
 
     /**
      * @param string $username

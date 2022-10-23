@@ -16,7 +16,7 @@ trait CachedOutputTrait
     /**
      * @var OutputCacheInterface|null
      */
-    private ?OutputCacheInterface $outputCache;
+    private readonly ?OutputCacheInterface $outputCache;
 
     /**
      * @var bool

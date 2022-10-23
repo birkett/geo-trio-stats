@@ -49,7 +49,7 @@ abstract class AbstractGeoApiController extends AbstractController
 
         // Take the longest TTL from all responses.
         foreach ($apiResponses as $apiResponse) {
-            if ($apiResponse->hasValidTtl() && $apiResponse->getTtl() > $this->getCacheTime()) {
+            if ($apiResponse->getTtl() > $this->getCacheTime()) {
                 $this->setCacheTime($apiResponse->getTtl());
             }
         }

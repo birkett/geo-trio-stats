@@ -18,12 +18,4 @@ trait TtlTrait
     {
         return $this->ttl;
     }
-
-    /**
-     * @return bool
-     */
-    public function hasValidTtl(): bool
-    {
-        return $this->ttl > 0;
-    }
 }

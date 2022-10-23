@@ -10,9 +10,4 @@ interface TtlTraitInterface
      * @return int
      */
     public function getTtl(): int;
-
-    /**
-     * @return bool
-     */
-    public function hasValidTtl(): bool;
 }
